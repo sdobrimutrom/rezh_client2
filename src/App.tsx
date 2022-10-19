@@ -1,11 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
+import MainRouter from './router/MainRouter';
 
 function App() {
 	return (
-	<div>
-		
-	</div>
+		<MainRouter />
 	);
 }
 
