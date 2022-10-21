@@ -1,3 +1,5 @@
 export default function AdminRequiredRoute() {
-    return <div>AdminRequiredRoute</div>;
+    return <div>AdminRequiredRoute
+		
+	</div>;
 }
