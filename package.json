@@ -37,30 +37,17 @@
 			"react-app/jest"
 		]
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "lint-staged"
-		}
-	},
-		"lint-staged": {
-			"src/**/*.{js,jsx,ts,tsx,json,css}": [
-				"prettier --write",
-				"eslint --fix src/",
-				"tslint --fix --project .",
-				"git add"
-			]
-	},
 	"browserslist": {
 		"production": [
-		">0.2%",
-		"not dead",
-		"not op_mini all"
-    ],
-    "development": [
-		"last 1 chrome version",
-		"last 1 firefox version",
-		"last 1 safari version"
-    ]
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^5.40.1",
@@ -72,8 +59,6 @@
 		"eslint-plugin-react": "^7.31.10",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"eslint-plugin-simple-import-sort": "^8.0.0",
-		"husky": "^8.0.1",
-		"lint-staged": "^13.0.3",
 		"prettier": "^2.7.1"
 	}
 }
