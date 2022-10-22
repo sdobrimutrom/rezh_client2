@@ -1,3 +1,5 @@
+import { Icon } from '@mui/material';
+
 export default function Main() {
     return (
         <div>

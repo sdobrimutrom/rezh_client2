@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import AdminNavBar from '../layouts/AdminNavBar';
-import DeputatNavBar from '../layouts/DeputatNavBar';
+import { Variant } from '../layouts/consts/variant';
 import NavBar from '../layouts/NavBar';
 import Main from '../pages/Main';
 import News from '../pages/News';
@@ -15,7 +14,7 @@ export default function MainRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar />}>
+                <Route path="/" element={<NavBar variant={Variant.USER} />}>
                     <Route index element={<Main />} />
                     <Route path="news" element={<News />} />
                     <Route path="unforbidden" element={<Unforbidden />} />
@@ -26,13 +25,14 @@ export default function MainRouter() {
                     </Route>
                 </Route>
                 <Route path="/deputat" element={<DeputatProtectedRoute />}>
-                    <Route element={<DeputatNavBar />}>
+                    <Route element={<NavBar variant={Variant.DEPUTAT} />}>
                         <Route index element={<div>я депутат</div>} />
                         {/* сюда пихаем роуты, доступные только депутатам */}
                     </Route>
                 </Route>
                 <Route path="/admin" element={<AdminProtectedRoute />}>
-                    <Route element={<AdminNavBar />}>
+                    <Route element={<NavBar variant={Variant.ADMIN} />}>
+                        {/* сюда пихаем роуты, доступные только админам */}
                         <Route path="news" element={<News />} />
                     </Route>
                 </Route>

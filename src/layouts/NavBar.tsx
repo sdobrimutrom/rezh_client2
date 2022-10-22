@@ -18,7 +18,13 @@ import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import { RouterLink } from '../components/common/RouterLink';
+import { getNavLinksFromVariant } from './consts/navbarLinks';
+import { getNameFromVariant } from './consts/navbarTitles';
+import { Variant } from './consts/variant';
 
 const drawerWidth = 240;
 
@@ -70,7 +76,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end'
 }));
 
-export default function PersistentDrawerLeft() {
+interface NavBarProps {
+    variant: Variant;
+}
+
+export default function NavBar({ variant }: NavBarProps) {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -81,6 +91,10 @@ export default function PersistentDrawerLeft() {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const navLinks = useMemo(() => {
+        return getNavLinksFromVariant(variant);
+    }, [variant]);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -96,7 +110,7 @@ export default function PersistentDrawerLeft() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Электронный портал города Реж
+                        {getNameFromVariant(variant)}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -113,26 +127,24 @@ export default function PersistentDrawerLeft() {
                 anchor="left"
                 open={open}>
                 <DrawerHeader>
+                    <Typography variant="h6" noWrap component="div" marginX={'auto'}>
+                        Навигация
+                    </Typography>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
+                    {navLinks.map((link) => (
+                        <ListItem key={link.name} disablePadding>
+                            <RouterLink to={link.link} text={link.name} icon={link.icon} />
                         </ListItem>
                     ))}
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    {['Перейти в админ панель', 'Перейти в панель депутата'].map((text, index) => (
                         <ListItem key={text} disablePadding>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -144,7 +156,8 @@ export default function PersistentDrawerLeft() {
                     ))}
                 </List>
             </Drawer>
-            <Main>
+            <Main open={open}>
+                <DrawerHeader />
                 <Outlet />
             </Main>
         </Box>
