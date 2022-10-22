@@ -1,8 +1,8 @@
-import { Icon } from '@mui/material';
+import { Container } from '@mui/material';
 
 export default function Main() {
     return (
-        <div>
+        <Container>
             MainPage
             <div>dsdsd</div>
             <div>dsdsd</div>
@@ -11,6 +11,6 @@ export default function Main() {
             <div>dsdsd</div>
             <div>dsdsd</div>
             <div>dsdsd</div>
-        </div>
+        </Container>
     );
 }

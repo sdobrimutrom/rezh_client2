@@ -1,4 +1,4 @@
-import { Variant } from './variant';
+import { Variant } from './navbarVariant';
 
 export const getNameFromVariant = (variant: Variant): string => {
     switch (variant) {

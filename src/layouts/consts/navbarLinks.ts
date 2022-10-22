@@ -1,7 +1,7 @@
 import ArticleIcon from '@mui/icons-material/Article';
 import HomeIcon from '@mui/icons-material/Home';
 
-import { Variant } from './variant';
+import { Variant } from './navbarVariant';
 
 interface Link {
     link: string;

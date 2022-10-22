@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Variant } from '../layouts/consts/variant';
+import { Variant } from '../layouts/consts/navbarVariant';
 import NavBar from '../layouts/NavBar';
 import Main from '../pages/Main';
 import News from '../pages/News';

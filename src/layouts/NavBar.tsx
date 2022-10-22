@@ -21,10 +21,10 @@ import * as React from 'react';
 import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { RouterLink } from '../components/common/RouterLink';
+import { RouterLink } from '../components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { getNameFromVariant } from './consts/navbarTitles';
-import { Variant } from './consts/variant';
+import { Variant } from './consts/navbarVariant';
 
 const drawerWidth = 240;
 
