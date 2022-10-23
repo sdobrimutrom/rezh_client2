@@ -8,7 +8,7 @@ export default function News() {
             id: 1,
             title: 'Новость1',
             text: 'В свердловской области убили негра айайайай',
-            img: 'src',
+            img: 'https://rg.ru/uploads/images/187/78/72/photorep_imageid_414801_9_ad8237b6.jpg',
             createdAt: new Date()
         },
         {
