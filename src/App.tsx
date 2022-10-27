@@ -1,13 +1,17 @@
+import { ErrorBoundary } from 'react-error-boundary';
 import { Provider } from 'react-redux';
 
+import ErrorPage from './pages/ErrorPage';
 import MainRouter from './router/MainRouter';
 import { store } from './store/store';
 
 function App() {
     return (
-        <Provider store={store}>
-            <MainRouter />
-        </Provider>
+        <ErrorBoundary FallbackComponent={ErrorPage}>
+            <Provider store={store}>
+                <MainRouter />
+            </Provider>
+        </ErrorBoundary>
     );
 }
 
