@@ -6,9 +6,7 @@ import Main from '../pages/Main';
 import News from '../pages/News';
 import NotFound from '../pages/NotFound';
 import Unforbidden from '../pages/Unforbidden';
-import AdminProtectedRoute from './components/AdminProtectedRoute';
-import AuthProtectedRoute from './components/AuthProtectedRoute';
-import DeputatProtectedRoute from './components/DeputatProtectedRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 export default function MainRouter() {
     return (
@@ -19,18 +17,18 @@ export default function MainRouter() {
                     <Route path="news" element={<News />} />
                     <Route path="unforbidden" element={<Unforbidden />} />
                     <Route path="*" element={<NotFound />} />
-                    <Route element={<AuthProtectedRoute />}>
+                    <Route element={<ProtectedRoute roles={['USER', 'DEPUTAT', 'ADMIN']} />}>
                         <Route index element={<div>я авторизован</div>} />
                         {/* сюда пихаем роуты, доступные только авторизованным пользователям */}
                     </Route>
                 </Route>
-                <Route path="/deputat" element={<DeputatProtectedRoute />}>
+                <Route path="/deputat" element={<ProtectedRoute roles={['DEPUTAT', 'ADMIN']} />}>
                     <Route element={<NavBar variant={Variant.DEPUTAT} />}>
                         <Route index element={<div>я депутат</div>} />
                         {/* сюда пихаем роуты, доступные только депутатам */}
                     </Route>
                 </Route>
-                <Route path="/admin" element={<AdminProtectedRoute />}>
+                <Route path="/admin" element={<ProtectedRoute roles={['ADMIN']} />}>
                     <Route element={<NavBar variant={Variant.ADMIN} />}>
                         {/* сюда пихаем роуты, доступные только админам */}
                         <Route path="news" element={<News />} />

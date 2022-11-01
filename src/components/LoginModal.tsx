@@ -1,4 +1,5 @@
 import { Close, Visibility, VisibilityOff } from '@mui/icons-material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
     Box,
     Button,
@@ -16,8 +17,11 @@ import {
 } from '@mui/material';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import { Store } from 'react-notifications-component';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+
+import { useLoginMutation } from '../store/api/auth';
 
 interface LoginModalProps {
     open: boolean;
@@ -32,6 +36,7 @@ const validationSchema = yup.object({
 export default function LoginModal({ open, handleClose }: LoginModalProps) {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
+    const [login, { isLoading }] = useLoginMutation();
 
     const formik = useFormik({
         initialValues: {
@@ -41,7 +46,26 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
         validationSchema: validationSchema,
         validateOnBlur: false,
         onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
+            login({ email: values.email, password: values.password })
+                .unwrap()
+                .then(() => {
+                    handleClose();
+                })
+                .catch((error) => {
+                    Store.addNotification({
+                        title: 'Ошибка',
+                        message: error?.data?.message ?? 'Неизвестная ошибка',
+                        type: 'danger',
+                        insert: 'bottom',
+                        container: 'top-right',
+                        animationIn: ['animate__animated', 'animate__fadeIn'],
+                        animationOut: ['animate__animated', 'animate__fadeOut'],
+                        dismiss: {
+                            duration: 3000,
+                            waitForAnimation: false
+                        }
+                    });
+                });
         }
     });
 
@@ -52,10 +76,6 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
 
     const handleShowPassword = () => {
         setShowPassword(!showPassword);
-    };
-
-    const handleNotShowPassword = () => {
-        setShowPassword(false);
     };
 
     return (
@@ -79,11 +99,7 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
                 </Grid>
                 <Box padding={6} paddingTop={1}>
                     <form onSubmit={formik.handleSubmit}>
-                        <Grid
-                            container
-                            direction={'column'}
-                            gap={4}
-                            justifyContent={'space-between'}>
+                        <Grid container direction={'column'} gap={4} justifyContent={'space-between'}>
                             <Grid container direction={'column'} justifyContent={'space-between'}>
                                 <Typography variant="h4" fontWeight={700}>
                                     Авторизация
@@ -105,10 +121,7 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
                                 <Grid container direction={'column'} gap={1}>
                                     <FormControl>
                                         <InputLabel
-                                            error={
-                                                formik.touched.password &&
-                                                Boolean(formik.errors.password)
-                                            }
+                                            error={formik.touched.password && Boolean(formik.errors.password)}
                                             htmlFor="password">
                                             Пароль
                                         </InputLabel>
@@ -119,21 +132,13 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
                                             type={showPassword ? 'text' : 'password'}
                                             value={formik.values.password}
                                             onChange={formik.handleChange}
-                                            error={
-                                                formik.touched.password &&
-                                                Boolean(formik.errors.password)
-                                            }
+                                            error={formik.touched.password && Boolean(formik.errors.password)}
                                             endAdornment={
                                                 <InputAdornment position="end">
                                                     <IconButton
                                                         aria-label="toggle password visibility"
-                                                        onClick={handleShowPassword}
-                                                        onMouseDown={handleNotShowPassword}>
-                                                        {showPassword ? (
-                                                            <Visibility />
-                                                        ) : (
-                                                            <VisibilityOff />
-                                                        )}
+                                                        onClick={handleShowPassword}>
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
                                                     </IconButton>
                                                 </InputAdornment>
                                             }
@@ -155,9 +160,13 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
                                 </Grid>
                             </Grid>
                             <Grid container direction={'column'} gap={1} alignItems={'center'}>
-                                <Button variant={'contained'} type={'submit'}>
+                                <LoadingButton
+                                    disabled={isLoading}
+                                    loading={isLoading}
+                                    variant={'contained'}
+                                    type={'submit'}>
                                     Авторизоваться
-                                </Button>
+                                </LoadingButton>
                                 <Typography variant="body2">или</Typography>
                                 <Button variant={'outlined'}>Зарегистрироваться</Button>
                             </Grid>

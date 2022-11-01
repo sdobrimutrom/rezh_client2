@@ -16,9 +16,7 @@ export default function Unforbidden() {
                 <Grid container spacing={2}>
                     <Grid xs={6}>
                         <Typography variant="h1">403</Typography>
-                        <Typography variant="h6">
-                            Страница которую вы ищете недоступна для вас
-                        </Typography>
+                        <Typography variant="h6">Страница которую вы ищете недоступна для вас</Typography>
                         <Button variant="contained" onClick={() => navigate('/')}>
                             На главную
                         </Button>

@@ -16,7 +16,7 @@ export const authApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}/auth/`,
         prepareHeaders: (headers) => {
-            const token = localStorage.getItem('access_item');
+            const token = localStorage.getItem('access_token');
             if (token) {
                 headers.set('Authorization', `Bearer ${token}`);
             }
@@ -29,7 +29,15 @@ export const authApi = createApi({
                 url: 'registration',
                 method: 'POST',
                 body: data
-            })
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled;
+                    localStorage.setItem('access_token', data.access_token);
+                } catch (e) {
+                    console.log(e);
+                }
+            }
         }),
         login: builder.mutation<AuthResponse, LoginInput>({
             query: (data) => ({

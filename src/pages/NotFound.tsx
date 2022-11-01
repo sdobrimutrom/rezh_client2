@@ -16,9 +16,7 @@ export default function NotFound() {
                 <Grid container spacing={2}>
                     <Grid xs={6}>
                         <Typography variant="h1">404</Typography>
-                        <Typography variant="h6">
-                            Страницы которую вы ищете не существует
-                        </Typography>
+                        <Typography variant="h6">Страницы которую вы ищете не существует</Typography>
                         <Button variant="contained" onClick={() => navigate('/')}>
                             На главную
                         </Button>

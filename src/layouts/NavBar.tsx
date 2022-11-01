@@ -1,9 +1,8 @@
-import { AccountCircle } from '@mui/icons-material';
+import { AccountCircle, EmojiPeople } from '@mui/icons-material';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
 import { Menu, MenuItem } from '@mui/material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,9 +12,6 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import { styled, useTheme } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -24,6 +20,7 @@ import { useMemo } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import LoginModal from '../components/LoginModal';
+import LogoutModal from '../components/LogoutModal';
 import { RouterLink } from '../components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { getNameFromVariant } from './consts/navbarTitles';
@@ -88,6 +85,7 @@ export default function NavBar({ variant }: NavBarProps) {
     const [navbarOpen, setNavbarOpen] = React.useState(false);
     const [userMenuOpen, setUserMenuOpen] = React.useState<null | HTMLElement>(null);
     const [loginModalOpen, setLoginModalOpen] = React.useState(false);
+    const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
     const [registrationModalOpen, setRegistrationModalOpen] = React.useState(false);
 
     const handleLoginModalOpen = () => {
@@ -97,6 +95,16 @@ export default function NavBar({ variant }: NavBarProps) {
 
     const handleLoginModalClose = () => {
         setLoginModalOpen(false);
+        handleUserMenuClose();
+    };
+
+    const handleLogoutModalOpen = () => {
+        setLogoutModalOpen(true);
+        handleUserMenuClose();
+    };
+
+    const handleLogoutModalClose = () => {
+        setLogoutModalOpen(false);
         handleUserMenuClose();
     };
 
@@ -173,6 +181,8 @@ export default function NavBar({ variant }: NavBarProps) {
                             <MenuItem onClick={handleLoginModalOpen}>Авторизоваться</MenuItem>
                             <LoginModal open={loginModalOpen} handleClose={handleLoginModalClose} />
                             <MenuItem onClick={handleUserMenuClose}>Профиль</MenuItem>
+                            <MenuItem onClick={handleLogoutModalOpen}>Выйти</MenuItem>
+                            <LogoutModal open={logoutModalOpen} handleClose={handleLogoutModalClose} />
                         </Menu>
                     </Box>
                 </Toolbar>
@@ -207,16 +217,12 @@ export default function NavBar({ variant }: NavBarProps) {
                 </List>
                 <Divider />
                 <List>
-                    {['Перейти в админ панель', 'Перейти в панель депутата'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <ListItem disablePadding>
+                        <RouterLink to={'/deputat'} text={'Перейти в панель депутата'} icon={EmojiPeople} />
+                    </ListItem>
+                    <ListItem disablePadding>
+                        <RouterLink to={'/admin'} text={'Перейти в панель админа'} icon={AdminPanelSettingsIcon} />
+                    </ListItem>
                 </List>
             </Drawer>
             <Main open={navbarOpen}>
