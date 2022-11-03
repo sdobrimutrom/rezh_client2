@@ -1,7 +1,7 @@
 import { Container } from '@mui/material';
 
-import NewsItem from '../../components/NewsItem';
-import { SortItem } from '../../components/NewsItem';
+import NewsItem from '../../../components/NewsItem';
+import { SortItem } from '../../../components/NewsItem';
 
 export default function News() {
     const newsMock = [
