@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Variant } from '../layouts/consts/navbarVariant';
 import NavBar from '../layouts/NavBar';
 import Main from '../pages/Main';
-import News from '../pages/News';
 import NotFound from '../pages/NotFound';
 import Unforbidden from '../pages/Unforbidden';
+import News from '../pages/user/News';
+import NewsItem from '../pages/user/NewsItem';
 import ProtectedRoute from './components/ProtectedRoute';
 
 export default function MainRouter() {
@@ -14,7 +15,10 @@ export default function MainRouter() {
             <Routes>
                 <Route path="/" element={<NavBar variant={Variant.USER} />}>
                     <Route index element={<Main />} />
-                    <Route path="news" element={<News />} />
+                    <Route path="news">
+                        <Route index element={<News />} />
+                        <Route path=":id" element={<NewsItem />} />
+                    </Route>
                     <Route path="unforbidden" element={<Unforbidden />} />
                     <Route path="*" element={<NotFound />} />
                     <Route element={<ProtectedRoute roles={['USER', 'DEPUTAT', 'ADMIN']} />}>

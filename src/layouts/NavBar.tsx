@@ -21,7 +21,7 @@ import { Outlet } from 'react-router-dom';
 
 import LoginModal from '../components/LoginModal';
 import LogoutModal from '../components/LogoutModal';
-import { RouterLink } from '../components/RouterLink';
+import { RouterLink } from '../router/components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { getNameFromVariant } from './consts/navbarTitles';
 import { Variant } from './consts/navbarVariant';
