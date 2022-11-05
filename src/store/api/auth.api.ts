@@ -4,6 +4,7 @@ import { LoginInput, RegistrationInput } from '../../types/user';
 import { IStatus } from '../models/IStatus';
 import { IUser } from '../models/IUser';
 import { setUser } from '../reducers/userSlice';
+import { commonApi } from './common.api';
 
 const BASE_URL = process.env.REACT_APP_API_URL as string;
 
@@ -11,18 +12,7 @@ interface AuthResponse extends IStatus {
     access_token: string;
 }
 
-export const authApi = createApi({
-    reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}/auth/`,
-        prepareHeaders: (headers) => {
-            const token = localStorage.getItem('access_token');
-            if (token) {
-                headers.set('Authorization', `Bearer ${token}`);
-            }
-            return headers;
-        }
-    }),
+export const authApi = commonApi.injectEndpoints({
     endpoints: (builder) => ({
         registration: builder.mutation<AuthResponse, RegistrationInput>({
             query: (data) => ({

@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { getRolesFromToken } from '../../helpers/jwt-token-helper';
+import { getRolesFromToken } from '../../helpers/jwt-token.helper';
 
 interface ProtectedRouteProps {
     redirectPath?: string;

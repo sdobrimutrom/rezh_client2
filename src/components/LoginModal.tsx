@@ -21,7 +21,7 @@ import { Store } from 'react-notifications-component';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import { useLoginMutation } from '../store/api/auth';
+import { useLoginMutation } from '../store/api/auth.api';
 
 interface LoginModalProps {
     open: boolean;
