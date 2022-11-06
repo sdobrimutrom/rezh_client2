@@ -4,15 +4,16 @@ import React, { useCallback } from 'react';
 interface FilterProps {
     filters: any;
     setFilters: (filters: any) => void;
-    resetFilters: () => void;
 }
 
-export default function Filters({ filters, setFilters, resetFilters }: FilterProps) {
+export default function Filters({ filters, setFilters }: FilterProps) {
     const handleFilterChange = (filter: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
         setFilters({ ...filters, [filter]: e.target.value });
     };
 
-    const getValueFromFilter = useCallback((filter: string) => filters[filter], [filters]);
+    const handleResetFilters = () => {
+        setFilters({});
+    };
 
     return (
         <Grid container direction="column" gap={3}>
@@ -20,13 +21,13 @@ export default function Filters({ filters, setFilters, resetFilters }: FilterPro
                 <TextField
                     id="search"
                     onInput={handleFilterChange('search')}
-                    value={getValueFromFilter('search')}
+                    value={filters['search']}
                     variant="outlined"
                     label="Поиск"
                     placeholder="Search..."
                     size="small"
                 />
-                <Button onClick={resetFilters} variant="outlined">
+                <Button onClick={handleResetFilters} variant="outlined">
                     Сбросить фильтры
                 </Button>
             </Grid>
@@ -34,7 +35,7 @@ export default function Filters({ filters, setFilters, resetFilters }: FilterPro
                 <TextField
                     id="search"
                     onInput={handleFilterChange('search')}
-                    value={getValueFromFilter('search')}
+                    value={filters['search']}
                     variant="outlined"
                     placeholder="Search..."
                     size="small"

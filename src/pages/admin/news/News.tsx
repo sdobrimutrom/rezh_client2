@@ -1,6 +1,8 @@
-import { Divider, Grid, Pagination, Typography } from '@mui/material';
+import { Add } from '@mui/icons-material';
+import { Button, Divider, Grid, Pagination, Typography } from '@mui/material';
 import { Container } from '@mui/system';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Filters from '../../../components/Filters';
 import { PAGE_LIMIT } from '../../../helpers/consts';
@@ -8,6 +10,8 @@ import { getTotalPages } from '../../../helpers/pagination.helper';
 import { useGetNewsQuery } from '../../../store/api/news.api';
 
 export default function News() {
+    const navigate = useNavigate();
+
     const [filters, setFilters] = useState({});
     const [page, setPage] = useState(1);
 
@@ -15,28 +19,23 @@ export default function News() {
         setPage(page);
     };
 
-    const handleResetFilters = () => {
-        setFilters({});
-    };
-
     const { data, isLoading, error } = useGetNewsQuery({ limit: PAGE_LIMIT, page: page });
-
-    if (isLoading) {
-        return <div>{'Загрузка...'}</div>;
-    }
 
     return (
         <Container>
             <Grid container direction="column" gap={2}>
-                <Grid item>
+                <Grid container direction="row" justifyContent="space-between">
                     <Typography variant="h4" fontWeight={700}>
                         Новости
                     </Typography>
+                    <Button onClick={() => navigate('create')}>
+                        <Add />
+                    </Button>
                 </Grid>
                 <Divider light flexItem variant="middle" />
                 <Grid container gap={3}>
                     <Grid container>
-                        <Filters filters={filters} setFilters={setFilters} resetFilters={handleResetFilters} />
+                        <Filters filters={filters} setFilters={setFilters} />
                     </Grid>
                     <Grid container direction="column" gap={2}>
                         {data?.rows?.map((news) => {

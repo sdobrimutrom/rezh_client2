@@ -21,7 +21,7 @@ export const newsApi = commonApi.injectEndpoints({
             query: ({ id }) => `news/${id}`,
             providesTags: ['News']
         }),
-        addNews: builder.mutation<INews, INews>({
+        addNews: builder.mutation<INews, FormData>({
             query: (news) => ({
                 url: 'news',
                 method: 'POST',
@@ -29,9 +29,9 @@ export const newsApi = commonApi.injectEndpoints({
             }),
             invalidatesTags: ['News']
         }),
-        editNews: builder.mutation<INews, Partial<INews>>({
+        editNews: builder.mutation<INews, FormData>({
             query: (news) => ({
-                url: `news/${news.id}`,
+                url: `news/${news.get('id')}`,
                 method: 'PUT',
                 body: news
             }),

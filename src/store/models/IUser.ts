@@ -10,3 +10,9 @@ export interface IUser {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export interface IUserRole {
+    id: number;
+    userId: number;
+    roleId: number;
+}
