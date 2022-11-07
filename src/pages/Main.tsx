@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Container } from 'react-bootstrap';
 
 export default function Main() {
     return (

@@ -29,6 +29,13 @@ export const newsApi = commonApi.injectEndpoints({
             }),
             invalidatesTags: ['News']
         }),
+        deleteNews: builder.mutation<string, { id: number }>({
+            query: ({ id }) => ({
+                url: `news/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['News']
+        }),
         editNews: builder.mutation<INews, FormData>({
             query: (news) => ({
                 url: `news/${news.get('id')}`,
@@ -40,4 +47,5 @@ export const newsApi = commonApi.injectEndpoints({
     })
 });
 
-export const { useGetNewsQuery, useGetNewsItemQuery, useAddNewsMutation, useEditNewsMutation } = newsApi;
+export const { useGetNewsQuery, useGetNewsItemQuery, useAddNewsMutation, useEditNewsMutation, useDeleteNewsMutation } =
+    newsApi;

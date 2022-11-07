@@ -1,6 +1,3 @@
-import ArticleIcon from '@mui/icons-material/Article';
-import HomeIcon from '@mui/icons-material/Home';
-
 import { Variant } from './navbarVariant';
 
 interface Link {
@@ -10,12 +7,12 @@ interface Link {
 }
 
 const userNavLinks: Link[] = [
-    { link: '/', icon: HomeIcon, name: 'Главная' },
-    { link: '/news', icon: ArticleIcon, name: 'Новости' }
+    { link: '/', name: 'Главная' },
+    { link: '/news', name: 'Новости' }
 ];
 
 const deputatNavLinks: Link[] = [
-    { link: '/deputat', icon: HomeIcon, name: 'Главная' },
+    { link: '/deputat', name: 'Главная' },
     { link: '/deputat/news', name: 'Новости' }
 ];
 

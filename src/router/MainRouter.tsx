@@ -26,6 +26,13 @@ export default function MainRouter() {
                         <Route path=":id" element={<NewsItem />} />
                     </Route>
 
+                    <Route path="requests">
+                        <Route index element={<News />} />
+                        <Route path=":id" />
+                        <Route path="create" />
+                        <Route path="frequency" />
+                    </Route>
+
                     <Route element={<ProtectedRoute roles={['USER', 'DEPUTAT', 'ADMIN']} />}>
                         <Route index element={<div>я авторизован</div>} />
                         {UserRouter}

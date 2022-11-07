@@ -1,5 +1,3 @@
-import { Container } from '@mui/material';
-
 import NewsItem from '../../../components/NewsItem';
 import { SortItem } from '../../../components/NewsItem';
 
@@ -43,11 +41,12 @@ export default function News() {
     ];
 
     return (
-        <Container>
-            <SortItem></SortItem>
-            {newsMock.map((newsItem) => {
-                return <NewsItem {...newsItem} key={newsItem.id} />;
-            })}
-        </Container>
+        <div></div>
+        // <Container>
+        //     <SortItem></SortItem>
+        //     {newsMock.map((newsItem) => {
+        //         return <NewsItem {...newsItem} key={newsItem.id} />;
+        //     })}
+        // </Container>
     );
 }

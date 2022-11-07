@@ -25,10 +25,8 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended',
         'plugin:jsx-a11y/recommended',
-        'plugin:prettier/recommended' // Make sure this is always the last element in the array.
     ],
     rules: {
-        'prettier/prettier': ['error', {}, { usePrettierrc: true }],
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
