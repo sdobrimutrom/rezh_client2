@@ -1,8 +1,9 @@
-import { useTheme } from '@emotion/react';
 import * as React from 'react';
 import { useMemo } from 'react';
 import { Button, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
 
+import { RouterLink } from '../router/components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { Variant } from './consts/navbarVariant';
 
@@ -69,24 +70,22 @@ export default function NavBar({ variant }: NavBarProps) {
 
     return (
         <>
-            <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-                <Navbar.Brand href="#home">React Bootstrap Navbar</Navbar.Brand>
+            <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className={ 'px-4' }>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Brand href="#home">React Bootstrap Navbar</Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/about-us">Contact Us</Nav.Link>
-                        <Nav.Link href="/contact-us">About Us</Nav.Link>
-                        <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                    <Nav className="">
+                        { navLinks.map((link) => <RouterLink key={ link.name } to={ link.link } text={ link.name } />) }
+                        <hr className={ 'hr' } />
+                        <NavDropdown title="Выбрать роль" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="/">Пользователь</NavDropdown.Item>
+                            <NavDropdown.Item href="/deputat">Депутат</NavDropdown.Item>
+                            <NavDropdown.Item href="/admin">Админ</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            <Outlet />
         </>
         // <Box sx={ { display: 'flex' } }>
         //     <CssBaseline />
