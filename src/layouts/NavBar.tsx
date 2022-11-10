@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useMemo } from 'react';
 import { Button, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { PersonCircle } from 'react-bootstrap-icons';
 import { Outlet } from 'react-router-dom';
 
 import { RouterLink } from '../router/components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { Variant } from './consts/navbarVariant';
+import LoginModal from '../components/LoginModal';
 
 interface NavBarProps {
     variant: Variant;
@@ -81,6 +83,12 @@ export default function NavBar({ variant }: NavBarProps) {
                             <NavDropdown.Item href="/">Пользователь</NavDropdown.Item>
                             <NavDropdown.Item href="/deputat">Депутат</NavDropdown.Item>
                             <NavDropdown.Item href="/admin">Админ</NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown className={ 'ml-auto' } title={ <PersonCircle /> } id="basic-nav-dropdown">
+                            <NavDropdown.Item onClick={handleLoginModalOpen}>Авторизация</NavDropdown.Item>
+                            <LoginModal open={ loginModalOpen } handleClose={ handleLoginModalClose } />
+                            <NavDropdown.Item>Профиль</NavDropdown.Item>
+                            <NavDropdown.Item onClick={handleLogoutModalOpen}>Выход</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

@@ -1,6 +1,5 @@
 module.exports = {
     root: true,
-    plugins: ['simple-import-sort'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
@@ -30,8 +29,6 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         '@typescript-eslint/explicit-function-return-type': 'off',
-        'simple-import-sort/imports': 'error',
-        'simple-import-sort/exports': 'error',
         'jsx-a11y/anchor-is-valid': [
             'error',
             {

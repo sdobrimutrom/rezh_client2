@@ -1,10 +1,12 @@
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import Modal from 'react-bootstrap/esm/Modal';
 import { Store } from 'react-notifications-component';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useLoginMutation } from '../store/api/auth.api';
+import { Button } from 'react-bootstrap';
 
 interface LoginModalProps {
     open: boolean;
@@ -62,7 +64,26 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
     };
 
     return (
-        <div></div>
+        <Modal.Dialog>
+            <Modal.Header closeButton>
+                <Modal.Title>Авторизация</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>Modal body text goes here.</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button
+                    disabled={isLoading}
+                    variant={'contained'}
+                    type={'submit'}>
+                    Авторизоваться
+                </Button>
+                <div>или</div>
+                <Button variant={'outlined'}>Зарегистрироваться</Button>
+            </Modal.Footer>
+        </Modal.Dialog>
         // <Modal
         //     open={open}
         //     onClose={handleClose}
