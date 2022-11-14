@@ -16,13 +16,14 @@ interface NewsItemProps {
 
 export default function NewsItem({ id, title, createdAt, text, img }: NewsItemProps) {
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={img} />
+        <Card className="mb-3">
+            <Card.Img variant="top" width={171} height={180} src={img} />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Text>{text}</Card.Text>
                 <Button variant="primary">Читать далее</Button>
             </Card.Body>
+            <Card.Footer className="text-muted">createdAt</Card.Footer>
         </Card>
     );
 

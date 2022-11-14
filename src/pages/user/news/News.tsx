@@ -67,7 +67,7 @@ export default function News() {
     function SelectSort() {
         return(
             <>
-                <Form.Select aria-label="Default select example">
+                <Form.Select aria-label="Default select example" className="mb-3">
                     <option>Сортировать</option>
                     <option value="1">По заголовку</option>
                     <option value="2">По дате</option>
@@ -79,17 +79,17 @@ export default function News() {
 
     return (
         <div>
-            <div className="page-header">
+            <div className="page-header ms-3">
                 <h1>Новости</h1>
             </div>
             <div>
-                <Container>
+                <Container className="justify-content-md-center">
                     <Row>
-                        <Col md = "auto"><SearchButton/></Col>
-                        <Col><Button variant="outline-primary">Очистить фильтры</Button>{' '}</Col>
+                        <Col><SearchButton/></Col>
                     </Row>
                     <Row>
-                        <Col md = "auto"><SelectSort/></Col>
+                        <Col><SelectSort/></Col>
+                        <Col><Button variant="outline-primary" className="mb-3">Очистить фильтры</Button>{' '}</Col>
                     </Row>
                 </Container>
             </div>
