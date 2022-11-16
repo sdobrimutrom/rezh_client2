@@ -8,43 +8,42 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import sliderImage_1 from "../Images/slider1.png"
+import sliderImage_2 from "../Images/slider2.png"
+import sliderImage_3 from "../Images/slider3.png"
 
 function FirstMainBlock() {
     return(
         <>
-            <Card className="bg-dark text-white">
-                <Card.Img src={image} alt="Card image" />
+            <Card
+                className="bg-dark text-white mb-3"
+                style = {{ "height": "496px" }}>
+                <Card.Img src={image} alt="Card image" style = {{ "height": "496px" }}/>
                 <Card.ImgOverlay>
                     <Container>
-                        <Row>
-                            <Col>
-                                <Card.Title className="fs-1 fw-bold">Amet minim mollit non deserunt ullamco.</Card.Title>
-                            </Col>
-                        </Row>
-                        <Card.Body>
                             <Row>
                                 <Col>
-                                    <InputGroup size="sm">
+                                    <h1
+                                        style = {{ "height": "118x", "width": "579px",  marginTop: "80px"}}>
+                                        Amet minim mollit non deserunt ullamco.
+                                    </h1>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col>
+                                    <InputGroup style = {{ "height": "70px", "width": "795px", marginLeft: "100px" }}>
                                         <Form.Control
                                             placeholder = "Введите текст.."
                                             aria-label = "Введите текст.."
                                             aria-describedby="basic-addon2"/>
+                                        <Button
+                                            variant="outline-secondary"
+                                            style = {{ "height": "70px", "width": "125px", marginLeft: "0px" }}>
+                                            Поиск
+                                        </Button>
                                     </InputGroup>
                                 </Col>
-                                <Col>
-                                    <Button variant="outline-secondary" size="sm">
-                                        Поиск
-                                    </Button>
-                                </Col>
-                                <Col>
-                                    <ListGroup variant="flush">
-                                        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                                    </ListGroup>
-                                </Col>
                             </Row>
-                        </Card.Body>
                     </Container>
                 </Card.ImgOverlay>
             </Card>
@@ -55,12 +54,13 @@ function FirstMainBlock() {
 function ProjectsSlider() {
     return(
         <>
-            <Carousel>
+            <Carousel style = {{"height": "600px"}} className = "mb-3">
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src="https://i.ytimg.com/vi/NKk6rGDpq6Y/sddefault.jpg"
+                        src={sliderImage_1}
                         alt="First slide"
+                        style = {{"height": "600px"}}
                     />
                     <Carousel.Caption>
                         <h3>Саня!</h3>
@@ -70,8 +70,9 @@ function ProjectsSlider() {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src="https://i.ytimg.com/vi/NKk6rGDpq6Y/sddefault.jpg"
+                        src={sliderImage_2}
                         alt="Second slide"
+                        style = {{"height": "600px"}}
                     />
 
                     <Carousel.Caption>
@@ -82,8 +83,9 @@ function ProjectsSlider() {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src="https://i.ytimg.com/vi/NKk6rGDpq6Y/sddefault.jpg"
+                        src={sliderImage_3}
                         alt="Third slide"
+                        style = {{"height": "600px"}}
                     />
 
                     <Carousel.Caption>
@@ -102,6 +104,15 @@ export default function Main() {
     return (
         <div>
             <FirstMainBlock/>
+            <div>
+                <Card
+                    bg="primary"
+                    text="white"
+                    style={{ "width": "440px", "height": "56px" }}
+                    className="mb-2 ms-3 w-600">
+                    <h1 className="text-center">Новости</h1>
+                </Card>
+            </div>
             <ProjectsSlider/>
         </div>
     );
