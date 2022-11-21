@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch } from '../hooks/redux';
 import { logout } from '../store/reducers/userSlice';
+import Modal from 'react-bootstrap/Modal';
+import { Button } from 'react-bootstrap';
 
 interface LogoutModalProps {
     open: boolean;
@@ -20,7 +22,24 @@ export default function LogoutModal({ open, handleClose }: LogoutModalProps) {
     };
 
     return (
-        <div></div>
+        <Modal show={ open } onHide={ handleClose }>
+            <Modal.Header closeButton>
+                <Modal.Title>Выход из аккаунта</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <p>Вы уверены что хотите выйти?</p>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button onClick={ handleLogoutClick } variant={"dark"} type={ 'submit' }>
+                    Да
+                </Button>
+                <Button variant={"outline-dark"} onClick={ handleClose }>
+                    Нет
+                </Button>
+            </Modal.Footer>
+        </Modal>
         // <Modal
         //     open={open}
         //     onClose={handleClose}

@@ -16,7 +16,7 @@ export const authApi = commonApi.injectEndpoints({
     endpoints: (builder) => ({
         registration: builder.mutation<AuthResponse, RegistrationInput>({
             query: (data) => ({
-                url: 'registration',
+                url: 'auth/registration',
                 method: 'POST',
                 body: data
             }),
@@ -31,7 +31,7 @@ export const authApi = commonApi.injectEndpoints({
         }),
         login: builder.mutation<AuthResponse, LoginInput>({
             query: (data) => ({
-                url: 'login',
+                url: 'auth/login',
                 method: 'POST',
                 body: data
             }),
@@ -46,7 +46,7 @@ export const authApi = commonApi.injectEndpoints({
         }),
         getMe: builder.query<IUser, null>({
             query() {
-                return { url: 'me', method: 'GET' };
+                return { url: 'auth/me', method: 'GET' };
             },
             transformResponse: (result: { data: { user: IUser } }) => result.data.user,
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {

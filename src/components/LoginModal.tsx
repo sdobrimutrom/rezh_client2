@@ -1,4 +1,3 @@
-import { useFormik } from 'formik';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/esm/Modal';
 import { Store } from 'react-notifications-component';
@@ -6,16 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 import { useLoginMutation } from '../store/api/auth.api';
-import { Button } from 'react-bootstrap';
+import { Button, Container, Form } from 'react-bootstrap';
+import { ErrorNotification } from '../helpers/consts';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface LoginModalProps {
     open: boolean;
     handleClose: () => void;
 }
 
+type FormValues = {
+    email: string;
+    password: string;
+}
+
 const validationSchema = yup.object({
     email: yup.string().email('Некорректный email').required('Введите email'),
-    password: yup.string().required('Введите пароль')
+    password: yup.string().required('Введите пароль'),
 });
 
 export default function LoginModal({ open, handleClose }: LoginModalProps) {
@@ -23,36 +30,22 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [login, { isLoading }] = useLoginMutation();
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-            password: ''
-        },
-        validationSchema: validationSchema,
-        validateOnBlur: false,
-        onSubmit: (values) => {
-            login({ email: values.email, password: values.password })
-                .unwrap()
-                .then(() => {
-                    handleClose();
-                })
-                .catch((error) => {
-                    Store.addNotification({
-                        title: 'Ошибка',
-                        message: error?.data?.message ?? 'Неизвестная ошибка',
-                        type: 'danger',
-                        insert: 'bottom',
-                        container: 'top-right',
-                        animationIn: ['animate__animated', 'animate__fadeIn'],
-                        animationOut: ['animate__animated', 'animate__fadeOut'],
-                        dismiss: {
-                            duration: 3000,
-                            waitForAnimation: false
-                        }
-                    });
-                });
-        }
+    const {
+        setError, handleSubmit, control, reset, formState: { errors }, getValues,
+    } = useForm<FormValues>({
+        resolver: yupResolver(validationSchema),
     });
+
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
+        login({ ...data })
+            .unwrap()
+            .then(() => {
+                handleClose();
+            })
+            .catch((error) => {
+                Store.addNotification({ ...ErrorNotification(error?.data?.message) });
+            });
+    };
 
     const navigateTo = (to: string) => {
         handleClose();
@@ -64,26 +57,53 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
     };
 
     return (
-        <Modal.Dialog>
+        <Modal show={ open } onHide={ handleClose }>
             <Modal.Header closeButton>
                 <Modal.Title>Авторизация</Modal.Title>
             </Modal.Header>
+            <Form onSubmit={ handleSubmit(onSubmit) }>
+                <Modal.Body className={"d-flex flex-column gap-3"}>
+                    <h6>Войдите в свой аккаунт</h6>
+                    <Form.Group controlId="formEmail">
+                        <Form.Label>Электронная почта</Form.Label>
+                        <Controller control={ control } name="email"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!errors.email }
+                                                      placeholder="Введите email" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { errors.email?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formPassword">
+                        <Form.Label>Пароль</Form.Label>
+                        <Controller control={ control } name="password"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!errors.password }
+                                                      placeholder="Введите пароль" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { errors.password?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Container className={ 'd-flex flex-column align-items-center gap-2' }>
+                        <Button
+                            disabled={ isLoading }
+                            variant={ 'dark' }
+                            type={ 'submit' }>
+                            Авторизоваться
+                        </Button>
+                        <div>или</div>
+                        <Button variant={ 'outline-dark' }>Зарегистрироваться</Button>
+                    </Container>
+                </Modal.Footer>
+            </Form>
 
-            <Modal.Body>
-                <p>Modal body text goes here.</p>
-            </Modal.Body>
-
-            <Modal.Footer>
-                <Button
-                    disabled={isLoading}
-                    variant={'contained'}
-                    type={'submit'}>
-                    Авторизоваться
-                </Button>
-                <div>или</div>
-                <Button variant={'outlined'}>Зарегистрироваться</Button>
-            </Modal.Footer>
-        </Modal.Dialog>
+        </Modal>
         // <Modal
         //     open={open}
         //     onClose={handleClose}
@@ -180,5 +200,6 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
         //         </Box>
         //     </Card>
         // </Modal>
-    );
+    )
+        ;
 }

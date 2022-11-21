@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { Button, FormControl, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Col, Container, FormControl, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
 import { PersonCircle } from 'react-bootstrap-icons';
 import { Outlet } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import { RouterLink } from '../router/components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { Variant } from './consts/navbarVariant';
 import LoginModal from '../components/LoginModal';
+import LogoutModal from '../components/LogoutModal';
 
 interface NavBarProps {
     variant: Variant;
@@ -74,21 +75,21 @@ export default function NavBar({ variant }: NavBarProps) {
         <>
             <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className={ 'px-4' }>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand href="#home">React Bootstrap Navbar</Navbar.Brand>
+                <Navbar.Brand href="#home">Электронный портал города Реж</Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="">
+                    <Nav>
                         { navLinks.map((link) => <RouterLink key={ link.name } to={ link.link } text={ link.name } />) }
-                        <hr className={ 'hr' } />
-                        <NavDropdown title="Выбрать роль" id="basic-nav-dropdown">
+                        <NavDropdown menuVariant={ 'dark' } title="Выбрать роль" id="basic-nav-dropdown">
                             <NavDropdown.Item href="/">Пользователь</NavDropdown.Item>
                             <NavDropdown.Item href="/deputat">Депутат</NavDropdown.Item>
                             <NavDropdown.Item href="/admin">Админ</NavDropdown.Item>
                         </NavDropdown>
-                        <NavDropdown className={ 'ml-auto' } title={ <PersonCircle /> } id="basic-nav-dropdown">
-                            <NavDropdown.Item onClick={handleLoginModalOpen}>Авторизация</NavDropdown.Item>
+                        <NavDropdown menuVariant={ 'dark' } title={ <PersonCircle /> } id="basic-nav-dropdown">
+                            <NavDropdown.Item onClick={ handleLoginModalOpen }>Авторизация</NavDropdown.Item>
                             <LoginModal open={ loginModalOpen } handleClose={ handleLoginModalClose } />
                             <NavDropdown.Item>Профиль</NavDropdown.Item>
-                            <NavDropdown.Item onClick={handleLogoutModalOpen}>Выход</NavDropdown.Item>
+                            <NavDropdown.Item onClick={ handleLogoutModalOpen }>Выход</NavDropdown.Item>
+                            <LogoutModal open={ logoutModalOpen } handleClose={ handleLogoutModalClose } />
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
