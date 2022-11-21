@@ -1,26 +1,19 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import Image from 'react-bootstrap/Image'
-import Row from 'react-bootstrap/Row';
+import { INews } from '../store/models/INews';
 
 interface NewsItemProps {
-    id: number;
-    title: string;
-    createdAt: Date;
-    text: string;
-    img: string;
+    news: INews;
 }
 
-export default function NewsItem({ id, title, createdAt, text, img }: NewsItemProps) {
+export default function NewsItem({ news }: NewsItemProps) {
     return (
         <Card className="mb-3">
-            <Card.Img variant="top" width={171} height={180} src={img} />
+            <Card.Img variant="top" width={171} height={180} src={news.image} />
             <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text>{text}</Card.Text>
+                <Card.Title>{news.title}</Card.Title>
+                <Card.Text>{news.content}</Card.Text>
                 <Button variant="primary">Читать далее</Button>
             </Card.Body>
             <Card.Footer className="text-muted">createdAt</Card.Footer>

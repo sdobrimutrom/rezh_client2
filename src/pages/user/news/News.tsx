@@ -6,43 +6,44 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 
 import NewsItem from '../../../components/NewsItem';
+import { INews } from '../../../store/models/INews';
 
 export default function News() {
-    const newsMock = [
+    const newsMocks: INews[] = [
         {
             id: 1,
             title: 'Новость1',
-            text: 'В свердловской области убили негра айайайай',
-            img: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
-            createdAt: new Date()
+            content: 'В свердловской области убили негра айайайай',
+            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            created_by: 1,
         },
         {
             id: 2,
             title: 'Новость2',
-            text: 'В свердловской области убили негра айайайай',
-            img: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
-            createdAt: new Date()
+            content: 'В свердловской области убили негра айайайай',
+            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            created_by: 1,
         },
         {
             id: 3,
             title: 'Новость3',
-            text: 'В свердловской области убили негра айайайай',
-            img: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
-            createdAt: new Date()
+            content: 'В свердловской области убили негра айайайай',
+            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            created_by: 1,
         },
         {
             id: 4,
             title: 'Новость4',
-            text: 'В свердловской области убили негра айайайай',
-            img: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
-            createdAt: new Date()
+            content: 'В свердловской области убили негра айайайай',
+            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            created_by: 1,
         },
         {
             id: 5,
             title: 'Новость5',
-            text: 'В свердловской области убили негра айайайай',
-            img: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
-            createdAt: new Date()
+            content: 'В свердловской области убили негра айайайай',
+            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            created_by: 1,
         }
     ];
 
@@ -94,8 +95,8 @@ export default function News() {
                 </Container>
             </div>
             <div>
-                {newsMock.map((newsItem) => {
-                    return <NewsItem {...newsItem} key={newsItem.id} />;
+                {newsMocks.map((newsItem: INews) => {
+                    return <NewsItem news={newsItem} key={newsItem.id} />;
                 })}
             </div>
         </div>

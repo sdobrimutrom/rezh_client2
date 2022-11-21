@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import { Row } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
+import NewsItem from '../../../components/NewsItem';
 
 export default function News() {
     const navigate = useNavigate();
@@ -52,7 +53,7 @@ export default function News() {
                 </Row>
                 <Row>
                     { news?.rows?.map((newsItem) => {
-                        return <div key={ newsItem.id }>{ newsItem.title }</div>;
+                        return <NewsItem news={newsItem} key={newsItem.id}/>;
                     }) }
                 </Row>
                 <Row>
