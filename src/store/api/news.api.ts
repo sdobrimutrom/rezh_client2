@@ -12,39 +12,39 @@ export const newsApi = commonApi.injectEndpoints({
                     limit,
                     page,
                     query,
-                    order
-                }
+                    order,
+                },
             }),
-            providesTags: ['News']
+            providesTags: ['News'],
         }),
         getNewsItem: builder.query<INews, { id: number }>({
-            query: ({ id }) => `news/${id}`,
-            providesTags: ['News']
+            query: ({ id }) => `news/${ id }`,
+            providesTags: ['News'],
         }),
         addNews: builder.mutation<INews, FormData>({
             query: (news) => ({
                 url: 'news',
                 method: 'POST',
-                body: news
+                body: news,
             }),
-            invalidatesTags: ['News']
+            invalidatesTags: ['News'],
         }),
         deleteNews: builder.mutation<string, { id: number }>({
             query: ({ id }) => ({
-                url: `news/${id}`,
-                method: 'DELETE'
+                url: `news/${ id }`,
+                method: 'DELETE',
             }),
-            invalidatesTags: ['News']
+            invalidatesTags: ['News'],
         }),
         editNews: builder.mutation<INews, FormData>({
             query: (news) => ({
-                url: `news/${news.get('id')}`,
+                url: `news/${ news.get('id') }`,
                 method: 'PUT',
-                body: news
+                body: news,
             }),
-            invalidatesTags: ['News']
-        })
-    })
+            invalidatesTags: ['News'],
+        }),
+    }),
 });
 
 export const { useGetNewsQuery, useGetNewsItemQuery, useAddNewsMutation, useEditNewsMutation, useDeleteNewsMutation } =
