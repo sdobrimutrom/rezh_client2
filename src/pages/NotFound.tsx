@@ -4,7 +4,7 @@ export default function NotFound() {
     const navigate = useNavigate();
 
     return (
-        <div></div>
+        <div>Не найдено</div>
         // <Box
         //     sx={{
         //         display: 'flex',

@@ -1,4 +1,4 @@
-export default function Requests() {
+export default function Request() {
     return <div>
         
     </div>;

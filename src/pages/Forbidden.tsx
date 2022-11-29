@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function Unforbidden() {
+export default function Forbidden() {
     const navigate = useNavigate();
 
     return (
-        <div></div>
+        <div>Нет доступа</div>
         // <Box
         //     sx={{
         //         display: 'flex',

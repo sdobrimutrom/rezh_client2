@@ -4,13 +4,17 @@ import { Variant } from '../layouts/consts/navbarVariant';
 import NavBar from '../layouts/NavBar';
 import Main from '../pages/Main';
 import NotFound from '../pages/NotFound';
-import Unforbidden from '../pages/Unforbidden';
+import Forbidden from '../pages/Forbidden';
 import News from '../pages/user/news/News';
 import NewsItem from '../pages/user/news/NewsItem';
 import AdminRouter from './AdminRouter';
 import ProtectedRoute from './components/ProtectedRoute';
 import DeputatRouter from './DeputatRouter';
 import UserRouter from './UserRouter';
+import CreateRequest from '../pages/user/requests/CreateRequest';
+import Frequency from '../pages/user/requests/Frequency';
+import Request from '../pages/user/requests/Request';
+import Requests from '../pages/user/requests/Requests';
 
 export default function MainRouter() {
     return (
@@ -18,7 +22,7 @@ export default function MainRouter() {
             <Routes>
                 <Route path="/" element={<NavBar variant={Variant.USER} />}>
                     <Route index element={<Main />} />
-                    <Route path="unforbidden" element={<Unforbidden />} />
+                    <Route path="forbidden" element={<Forbidden />} />
                     <Route path="*" element={<NotFound />} />
 
                     <Route path="news">
@@ -27,10 +31,10 @@ export default function MainRouter() {
                     </Route>
 
                     <Route path="requests">
-                        <Route index element={<News />} />
-                        <Route path=":id" />
-                        <Route path="create" />
-                        <Route path="frequency" />
+                        <Route index element={<Requests />} />
+                        <Route path=":id" element={<Request />}/>
+                        <Route path="create" element={<CreateRequest />}/>
+                        <Route path="frequency" element={<Frequency />}/>
                     </Route>
 
                     <Route element={<ProtectedRoute roles={['USER', 'DEPUTAT', 'ADMIN']} />}>
