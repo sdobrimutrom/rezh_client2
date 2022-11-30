@@ -15,45 +15,51 @@ import CreateRequest from '../pages/user/requests/CreateRequest';
 import Frequency from '../pages/user/requests/Frequency';
 import Request from '../pages/user/requests/Request';
 import Requests from '../pages/user/requests/Requests';
+import { useGetMeQuery } from '../store/api/auth.api';
+import { useAppSelector } from '../hooks/redux';
+import SearchRequest from '../pages/user/requests/SearchRequest';
 
 export default function MainRouter() {
+    const { isLoading, isFetching } = useGetMeQuery(null);
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<NavBar variant={Variant.USER} />}>
-                    <Route index element={<Main />} />
-                    <Route path="forbidden" element={<Forbidden />} />
-                    <Route path="*" element={<NotFound />} />
+                <Route path="/" element={ <NavBar variant={ Variant.USER } /> }>
+                    <Route index element={ <Main /> } />
+                    <Route path="forbidden" element={ <Forbidden /> } />
+                    <Route path="*" element={ <NotFound /> } />
 
                     <Route path="news">
-                        <Route index element={<News />} />
-                        <Route path=":id" element={<NewsItem />} />
+                        <Route index element={ <News /> } />
+                        <Route path=":id" element={ <NewsItem /> } />
                     </Route>
 
                     <Route path="requests">
-                        <Route index element={<Requests />} />
-                        <Route path=":id" element={<Request />}/>
-                        <Route path="create" element={<CreateRequest />}/>
-                        <Route path="frequency" element={<Frequency />}/>
+                        <Route index element={ <Requests /> } />
+                        <Route path=":id" element={ <Request /> } />
+                        <Route path="create" element={ <CreateRequest /> } />
+                        <Route path="frequency" element={ <Frequency /> } />
+                        <Route path="search" element={ <SearchRequest /> }/>
                     </Route>
 
-                    <Route element={<ProtectedRoute roles={['USER', 'DEPUTAT', 'ADMIN']} />}>
-                        <Route index element={<div>я авторизован</div>} />
-                        {UserRouter}
-                    </Route>
-                </Route>
-
-                <Route path="/deputat" element={<ProtectedRoute roles={['DEPUTAT', 'ADMIN']} />}>
-                    <Route element={<NavBar variant={Variant.DEPUTAT} />}>
-                        <Route index element={<div>я депутат</div>} />
-                        {DeputatRouter}
+                    <Route element={ <ProtectedRoute roles={ ['USER', 'DEPUTAT', 'ADMIN'] } /> }>
+                        <Route index element={ <div>я авторизован</div> } />
+                        { UserRouter }
                     </Route>
                 </Route>
 
-                <Route path="/admin" element={<ProtectedRoute roles={['ADMIN']} />}>
-                    <Route element={<NavBar variant={Variant.ADMIN} />}>
-                        <Route index element={<div>я админ</div>} />
-                        {AdminRouter}
+                <Route path="/deputat" element={ <ProtectedRoute roles={ ['DEPUTAT', 'ADMIN'] } /> }>
+                    <Route element={ <NavBar variant={ Variant.DEPUTAT } /> }>
+                        <Route index element={ <div>я депутат</div> } />
+                        { DeputatRouter }
+                    </Route>
+                </Route>
+
+                <Route path="/admin" element={ <ProtectedRoute roles={ ['ADMIN'] } /> }>
+                    <Route element={ <NavBar variant={ Variant.ADMIN } /> }>
+                        <Route index element={ <div>я админ</div> } />
+                        { AdminRouter }
                     </Route>
                 </Route>
             </Routes>

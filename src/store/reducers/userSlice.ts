@@ -22,7 +22,7 @@ export const userSlice = createSlice({
         setUser: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload;
         }
-    }
+    },
 });
 
 export default userSlice.reducer;

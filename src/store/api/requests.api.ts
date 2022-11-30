@@ -16,8 +16,8 @@ export const requestsApi = commonApi.injectEndpoints({
             }),
             providesTags: ['Requests', 'Answers'],
         }),
-        getRequest: builder.query<IRequest, { id: number }>({
-            query: ({ id }) => `requests/${ id }`,
+        getRequest: builder.query<IRequest, number | undefined>({
+            query: (id) => `requests/${ id }`,
             providesTags: ['Requests', 'Answers'],
         }),
         addRequest: builder.mutation<IRequest, FormData>({
