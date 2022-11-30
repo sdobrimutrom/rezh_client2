@@ -1,10 +1,7 @@
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import Form from 'react-bootstrap/Form';
 import image from '../Images/MainPage_1.png';
-import InputGroup from 'react-bootstrap/InputGroup';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -59,6 +56,11 @@ function NewsBlock() {
             <Container className = "ms-2" fluid>
                 <Row>
                     <Col>
+                        <Card
+                            className="text-center bg-secondary text-white mb-3 w-600"
+                            style={{ "width": "440px", "height": "56px" }}>
+                            <h1>Новости</h1>
+                        </Card>
                         <h1 style={{ "width": "440px", "height": "56px" }}
                             className="text-center ms-3 bg-secondary text-white">
                             Фильтры</h1>
@@ -89,28 +91,39 @@ function NewsBlock() {
                             </Form.Select>
                         </div>
 
-                        <button type="button" className="btn btn-secondary text-center ms-3 w-600" style = {{ "width": "440px", "height": "77px" }}>Показать</button>
+                        <button type="button" className="btn btn-secondary text-center ms-3" style = {{ "width": "440px", "height": "77px" }}>
+                            <h1>Показать</h1>
+                        </button>
                     </Col>
                     <Col className = "me-3">
                         <Card className="bg-dark text-white mb-3">
                             <Card.Img src={newsImage_1} alt="Card image"/>
                             <Card.ImgOverlay>
-                                <Card.Header>*Время* *Сфера*</Card.Header>
-                                <Card.Text className="align-text-top">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
+                                <Card.Header>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
+                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                </Card.Header>
+                                <span className="align-self-end mb-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</span>
                             </Card.ImgOverlay>
                         </Card>
-                        <Card className="bg-dark text-white mb-3 ms-0" >
+                        <Card className="bg-dark text-white mb-3" >
                             <Card.Img src={newsImage_2} alt="Card image"/>
                             <Card.ImgOverlay>
-                                <Card.Header>*Время* *Сфера*</Card.Header>
-                                <Card.Text className="align-text-top">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
+                                <Card.Header>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
+                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                </Card.Header>
+                                <Card.Text className="align-self-end mb-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
                             </Card.ImgOverlay>
                         </Card>
                         <Card className="bg-dark text-white mb-3">
                             <Card.Img src={newsImage_3} alt="Card image"/>
                             <Card.ImgOverlay>
-                                <Card.Header>*Время* *Сфера*</Card.Header>
-                                <Card.Text className="align-text-top">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
+                                <Card.Header>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
+                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                </Card.Header>
+                                <Card.Text className="align-text-bottom">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
                             </Card.ImgOverlay>
                         </Card>
                     </Col>
@@ -176,13 +189,6 @@ export default function Main() {
     return (
         <div>
             <FirstMainBlock/>
-            <div>
-                <Card
-                    className="text-center ms-3 bg-secondary text-white mb-3 ms-3 w-600"
-                    style={{ "width": "440px", "height": "56px" }}>
-                    <h1>Новости</h1>
-                </Card>
-            </div>
             <NewsBlock/>
             <ProjectsSlider/>
         </div>
