@@ -19,6 +19,8 @@ export interface IRequest {
     moderating_text: string;
     answer: IAnswer;
     answer_id: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export interface IModerateRequestDto {
