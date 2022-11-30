@@ -14,6 +14,6 @@ export const commonApi = createApi({
             return headers;
         }
     }),
-    tagTypes: ['News', 'User'],
+    tagTypes: ['News', 'User', 'Requests', 'Answers'],
     endpoints: (_) => ({})
 });

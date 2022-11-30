@@ -1,6 +1,6 @@
 export default function ErrorPage({ error }: { error: Error }) {
     return (
-        <div></div>
+        <div>Произошла ошибка</div>
         // <Grid container direction="column" gap={2}>
         //     <Typography variant="h1">Упс...</Typography>
         //     <Typography variant="h2">Произошла непредвиденная ошибка</Typography>
