@@ -1,10 +1,12 @@
 import { IRequest } from './IRequest';
+import { IUser } from './IUser';
 
 export interface IAnswer {
     id: number;
     text: string;
     files: string[];
-    answerer_id: number;
     request: IRequest;
     request_id: number;
+    user_id: number;
+    user: IUser;
 }

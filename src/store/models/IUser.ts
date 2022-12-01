@@ -4,9 +4,9 @@ export interface IUser {
     id: number;
     email: string;
     roles: IRole[];
-    firstName: string;
-    secondName: string;
-    fatherName: string;
+    first_name: string;
+    second_name: string;
+    father_name: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

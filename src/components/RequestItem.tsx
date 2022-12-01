@@ -12,7 +12,6 @@ interface NewsItemProps {
 }
 
 export default function RequestItem({ request }: NewsItemProps) {
-    console.log(request);
     return (
         <Card>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>
@@ -25,13 +24,13 @@ export default function RequestItem({ request }: NewsItemProps) {
                 <Card.Text>{ request?.text }</Card.Text>
             </Card.Body>
             { request?.files && <Accordion>
-                <AccordionHeader>Приложения к обращению</AccordionHeader>
-                <AccordionBody>
-                    { request?.files?.map(file =>
-                        <a className={ 'text-decoration-none d-block' } href={ `${ getFileURL(file) }` } key={ file }>
-                            Файл: { file }</a>,
-                    ) }
-                </AccordionBody>
+              <AccordionHeader>Приложения к обращению</AccordionHeader>
+              <AccordionBody>
+                  { request?.files?.map(file =>
+                      <a className={ 'text-decoration-none d-block' } href={ `${ getFileURL(file) }` } key={ file }>
+                          Файл: { file }</a>,
+                  ) }
+              </AccordionBody>
             </Accordion> }
             <Accordion>
                 <AccordionHeader>Данные пользователя</AccordionHeader>
@@ -47,6 +46,13 @@ export default function RequestItem({ request }: NewsItemProps) {
             { request?.answer && <Accordion>
               <AccordionHeader>Ответ на обращение</AccordionHeader>
               <AccordionBody>
+                <Card.Subtitle>
+                    { `Ответил: ` +
+                        `${ request?.answer?.user?.second_name } ` +
+                        `${ request?.answer?.user?.first_name } ` +
+                        `${ request?.answer?.user?.father_name }` +
+                        `\t Email: ${ request?.answer?.user?.email }` }
+                </Card.Subtitle>
                 <Card.Text>{ request?.answer.text }</Card.Text>
                   { request.answer.files && <Accordion>
                     <AccordionHeader>Приложения к ответу</AccordionHeader>
