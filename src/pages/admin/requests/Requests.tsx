@@ -1,5 +1,46 @@
+import { Row } from 'react-bootstrap';
+import Col from 'react-bootstrap/Col';
+import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
+import { getTotalPages } from '../../../helpers/pagination.helper';
+import Container from 'react-bootstrap/Container';
+import React, { useState } from 'react';
+import { PAGE_LIMIT } from '../../../helpers/consts';
+import { useGetRequestsQuery } from '../../../store/api/requests.api';
+import RequestItem from '../../../components/RequestItem';
+
 export default function Requests() {
-    return <div>
-        
-    </div>;
+    const [page, setPage] = useState(1);
+
+    const handleChangePage = (event: OnChangeEventType) => {
+        setPage(event.target.value);
+    };
+
+    const { data: requests, } = useGetRequestsQuery({ limit: PAGE_LIMIT, page: page });
+
+    return (
+        <Container className={ 'py-3 d-flex flex-column gap-3' }>
+            <Row className={ 'justify-content-between' }>
+                <Col>
+                    <h3>Обращения</h3>
+                </Col>
+            </Row>
+            <Row>
+                <hr />
+            </Row>
+            <Row>
+                <Row>
+
+                </Row>
+                <Row>
+                    { requests?.rows?.map((request) => {
+                        return <RequestItem request={request} key={request.id}/>;
+                    }) }
+                </Row>
+                <Row>
+                    <Pagination onChange={ handleChangePage } aroundCurrent={ 1 }
+                                totalPages={ getTotalPages(requests?.count) } value={ page } />
+                </Row>
+            </Row>
+        </Container>
+    );
 }

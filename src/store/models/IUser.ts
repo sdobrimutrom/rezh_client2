@@ -1,4 +1,5 @@
 import { IRole } from './IRole';
+import { INewsOrder, INewsQuery } from './INews';
 
 export interface IUser {
     id: number;
@@ -15,4 +16,9 @@ export interface IUserRole {
     id: number;
     userId: number;
     roleId: number;
+}
+
+export interface IUsersQueryParams {
+    limit?: number;
+    page?: number;
 }
