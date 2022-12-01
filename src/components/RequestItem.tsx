@@ -50,8 +50,8 @@ export default function RequestItem({ request }: NewsItemProps) {
                     { `Ответил: ` +
                         `${ request?.answer?.user?.second_name } ` +
                         `${ request?.answer?.user?.first_name } ` +
-                        `${ request?.answer?.user?.father_name }` +
-                        `\t Email: ${ request?.answer?.user?.email }` }
+                        `${ request?.answer?.user?.father_name } ` +
+                        `Email: ${ request?.answer?.user?.email }` }
                 </Card.Subtitle>
                 <Card.Text>{ request?.answer.text }</Card.Text>
                   { request.answer.files && <Accordion>

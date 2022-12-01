@@ -18,6 +18,7 @@ import Requests from '../pages/user/requests/Requests';
 import { useGetMeQuery } from '../store/api/auth.api';
 import { useAppSelector } from '../hooks/redux';
 import SearchRequest from '../pages/user/requests/SearchRequest';
+import Deputats from '../pages/Deputats';
 
 export default function MainRouter() {
     const { isLoading, isFetching } = useGetMeQuery(null);
@@ -29,6 +30,7 @@ export default function MainRouter() {
                     <Route index element={ <Main /> } />
                     <Route path="forbidden" element={ <Forbidden /> } />
                     <Route path="*" element={ <NotFound /> } />
+                    <Route path="deputats" element={ <Deputats /> } />
 
                     <Route path="news">
                         <Route index element={ <News /> } />
@@ -40,7 +42,7 @@ export default function MainRouter() {
                         <Route path=":id" element={ <Request /> } />
                         <Route path="create" element={ <CreateRequest /> } />
                         <Route path="frequency" element={ <Frequency /> } />
-                        <Route path="search" element={ <SearchRequest /> }/>
+                        <Route path="search" element={ <SearchRequest /> } />
                     </Route>
 
                     <Route element={ <ProtectedRoute roles={ ['USER', 'DEPUTAT', 'ADMIN'] } /> }>
