@@ -27,7 +27,7 @@ export interface IModerateRequestDto {
     id: number;
     moderated: boolean;
     approved: boolean;
-    moderating_text: string;
+    moderating_text?: string;
 }
 
 export interface IRequestsQueryParams {

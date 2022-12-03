@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container';
 import React, { useState } from 'react';
 import { PAGE_LIMIT } from '../../../helpers/consts';
 import { useGetRequestsQuery } from '../../../store/api/requests.api';
-import RequestItem from '../../../components/RequestItem';
+import RequestItem from '../../../components/requests/RequestItem';
 
 export default function Requests() {
     const [page, setPage] = useState(1);
@@ -31,9 +31,9 @@ export default function Requests() {
                 <Row>
 
                 </Row>
-                <Row>
+                <Row className={'d-flex flex-column gap-3 container'}>
                     { requests?.rows?.map((request) => {
-                        return <RequestItem request={request} key={request.id}/>;
+                        return <RequestItem key={request.id} request={request}/>;
                     }) }
                 </Row>
                 <Row>

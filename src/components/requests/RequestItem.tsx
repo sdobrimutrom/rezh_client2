@@ -1,19 +1,36 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { IRequest } from '../store/models/IRequest';
+import { IRequest } from '../../store/models/IRequest';
 import { Accordion } from 'react-bootstrap';
 import AccordionHeader from 'react-bootstrap/AccordionHeader';
 import AccordionBody from 'react-bootstrap/AccordionBody';
-import { getFileURL } from '../helpers/url.helper';
-import { moderatingText } from '../helpers/consts';
+import { getFileURL } from '../../helpers/url.helper';
+import { moderatingText } from '../../helpers/consts';
+import { useModerateRequestMutation } from '../../store/api/requests.api';
+import Button from 'react-bootstrap/Button';
+import RequestItemModerate from './RequestItemModerate';
+import RequestItemAnswer from './RequestItemAnswer';
 
 interface NewsItemProps {
     request: IRequest;
+    withModeratingUI?: boolean;
+    withAnsweringUI?: boolean;
 }
 
-export default function RequestItem({ request }: NewsItemProps) {
+export default function RequestItem({ request, withModeratingUI = false, withAnsweringUI = true }: NewsItemProps) {
+
+    const [moderateRequest, moderateMeta] = useModerateRequestMutation();
+    const approveRequest = () => {
+        moderateRequest({
+            id: request.id,
+            moderated: true,
+            approved: true,
+            moderating_text: undefined,
+        });
+    };
+
     return (
-        <Card>
+        <Card className={ 'p-0' }>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>
                 <Card.Text>Дата: { request?.updatedAt?.toString() }</Card.Text>
                 <Card.Text>Статус: { moderatingText(request?.approved, request?.moderated) }</Card.Text>
@@ -66,7 +83,8 @@ export default function RequestItem({ request }: NewsItemProps) {
                   </Accordion> }
               </AccordionBody>
             </Accordion> }
-            <Card.Footer className="text-muted"></Card.Footer>
+            { withModeratingUI && request?.id && <RequestItemModerate id={ request?.id } /> }
+            { withAnsweringUI && request?.id && <RequestItemAnswer id={ request?.id } /> }
         </Card>
     );
 
