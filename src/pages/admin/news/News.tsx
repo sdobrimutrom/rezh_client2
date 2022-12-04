@@ -8,7 +8,7 @@ import { useDeleteNewsMutation, useGetNewsQuery } from '../../../store/api/news.
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { Row } from 'react-bootstrap';
+import { FormGroup, Row } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
 import NewsItem from '../../../components/NewsItem';
@@ -17,7 +17,7 @@ export default function News() {
     const navigate = useNavigate();
 
     const [filters, setFilters] = useState({});
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
 
     const handleChangePage = (event: OnChangeEventType) => {
         setPage(event.target.value);
@@ -49,7 +49,9 @@ export default function News() {
             </Row>
             <Row>
                 <Row>
+                    <FormGroup>
 
+                    </FormGroup>
                 </Row>
                 <Row>
                     { news?.rows?.map((newsItem) => {

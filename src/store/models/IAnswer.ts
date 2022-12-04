@@ -10,4 +10,6 @@ export interface IAnswer {
     request_id: number;
     user_id: number;
     user: IUser;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

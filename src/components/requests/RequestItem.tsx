@@ -10,6 +10,7 @@ import { useModerateRequestMutation } from '../../store/api/requests.api';
 import Button from 'react-bootstrap/Button';
 import RequestItemModerate from './RequestItemModerate';
 import RequestItemAnswer from './RequestItemAnswer';
+import { getDateString } from '../../helpers/date.helper';
 
 interface NewsItemProps {
     request: IRequest;
@@ -21,7 +22,7 @@ export default function RequestItem({ request, withModeratingUI = false, withAns
     return (
         <Card className={ 'p-0' }>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>
-                <Card.Text>Дата: { request?.updatedAt?.toString() }</Card.Text>
+                <Card.Text>Дата обращения: { getDateString(request?.updatedAt) }</Card.Text>
                 <Card.Text>Статус: { moderatingText(request?.approved, request?.moderated) }</Card.Text>
             </Card.Header>
             <Card.Body>
@@ -52,6 +53,7 @@ export default function RequestItem({ request, withModeratingUI = false, withAns
             { request?.answer && <Accordion>
               <AccordionHeader>Ответ на обращение</AccordionHeader>
               <AccordionBody>
+                <Card.Text>Дата ответа: { getDateString(request?.answer?.updatedAt) }</Card.Text>
                 <Card.Subtitle>
                     { `Ответил: ` +
                         `${ request?.answer?.user?.second_name } ` +
