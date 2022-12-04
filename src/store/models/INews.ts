@@ -11,7 +11,7 @@ export interface INews {
 export interface INewsQueryParams {
     limit?: number;
     page?: number;
-    query?: INewsQuery;
+    query?: string;
     order?: INewsOrder;
 }
 
