@@ -1,71 +1,72 @@
 import * as React from 'react';
 import { useMemo } from 'react';
-import { Button, Col, Container, FormControl, Nav, Navbar, NavDropdown, Row } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { PersonCircle } from 'react-bootstrap-icons';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 import { RouterLink } from '../router/components/RouterLink';
 import { getNavLinksFromVariant } from './consts/navbarLinks';
 import { Variant } from './consts/navbarVariant';
 import LoginModal from '../components/LoginModal';
 import LogoutModal from '../components/LogoutModal';
+import { useAppSelector } from '../hooks/redux';
 
 interface NavBarProps {
     variant: Variant;
 }
 
 export default function NavBar({ variant }: NavBarProps) {
-    const [navbarOpen, setNavbarOpen] = React.useState(false);
-    const [userMenuOpen, setUserMenuOpen] = React.useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
+
     const [loginModalOpen, setLoginModalOpen] = React.useState(false);
     const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
-    const [registrationModalOpen, setRegistrationModalOpen] = React.useState(false);
 
-    const handleLoginModalOpen = () => {
-        setLoginModalOpen(true);
-        handleUserMenuClose();
+    const { user } = useAppSelector(state => state.userReducer);
+
+    const roles = useMemo(() => {
+        return user?.roles.map((role) => role.value);
+    }, [user]);
+
+    const handleLoginModalOpen = (value: boolean) => () => {
+        setLoginModalOpen(value);
     };
 
-    const handleLoginModalClose = () => {
-        setLoginModalOpen(false);
-        handleUserMenuClose();
+    const handleLogoutModalOpen = (value: boolean) => () => {
+        setLogoutModalOpen(value);
     };
 
-    const handleLogoutModalOpen = () => {
-        setLogoutModalOpen(true);
-        handleUserMenuClose();
-    };
+    const renderUserLinks = useMemo(() => {
+        if (user) {
+            return (
+                <>
+                    <NavDropdown.Item onClick={ () => navigate('/profile') }>Профиль</NavDropdown.Item>
+                    <NavDropdown.Item onClick={ handleLogoutModalOpen(true) }>Выход</NavDropdown.Item>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <NavDropdown.Item onClick={ handleLoginModalOpen(true) }>Авторизация</NavDropdown.Item>
+                    <NavDropdown.Item onClick={ () => navigate('/registration') }>Регистрация</NavDropdown.Item>
+                </>
+            );
+        }
 
-    const handleLogoutModalClose = () => {
-        setLogoutModalOpen(false);
-        handleUserMenuClose();
-    };
+    }, [user]);
 
-    const handleRegistrationModalOpen = () => {
-        setRegistrationModalOpen(true);
-        handleUserMenuClose();
-    };
-
-    const handleRegistrationModalClose = () => {
-        setRegistrationModalOpen(false);
-        handleUserMenuClose();
-    };
-
-    const handleUserMenuChange = (event: React.MouseEvent<HTMLElement>) => {
-        setUserMenuOpen(event.currentTarget);
-    };
-
-    const handleUserMenuClose = () => {
-        setUserMenuOpen(null);
-    };
-
-    const handleDrawerOpen = () => {
-        setNavbarOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setNavbarOpen(false);
-    };
+    const renderChoosingRole = useMemo(() => {
+        if (roles?.includes('DEPUTAT') || roles?.includes('ADMIN')) {
+            return (
+                <NavDropdown menuVariant={ 'dark' } title="Выбрать роль" id="basic-nav-dropdown">
+                    <NavDropdown.Item onClick={ () => navigate('/') }>Пользователь</NavDropdown.Item>
+                    { roles?.includes('DEPUTAT')
+                        && <NavDropdown.Item onClick={ () => navigate('/deputat') }>Депутат</NavDropdown.Item> }
+                    { roles?.includes('ADMIN')
+                        && <NavDropdown.Item onClick={ () => navigate('/admin') }>Админ</NavDropdown.Item> }
+                </NavDropdown>
+            );
+        }
+    }, [user]);
 
     const navLinks = useMemo(() => {
         return getNavLinksFromVariant(variant);
@@ -75,118 +76,20 @@ export default function NavBar({ variant }: NavBarProps) {
         <>
             <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className={ 'px-4' }>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand href="#home">Электронный портал города Реж</Navbar.Brand>
+                <Navbar.Brand onClick={ () => navigate('/') }>Электронный портал города Реж</Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
                         { navLinks.map((link) => <RouterLink key={ link.name } to={ link.link } text={ link.name } />) }
-                        <NavDropdown menuVariant={ 'dark' } title="Выбрать роль" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="/">Пользователь</NavDropdown.Item>
-                            <NavDropdown.Item href="/deputat">Депутат</NavDropdown.Item>
-                            <NavDropdown.Item href="/admin">Админ</NavDropdown.Item>
-                        </NavDropdown>
+                        { renderChoosingRole }
                         <NavDropdown menuVariant={ 'dark' } title={ <PersonCircle /> } id="basic-nav-dropdown">
-                            <NavDropdown.Item onClick={ handleLoginModalOpen }>Авторизация</NavDropdown.Item>
-                            <LoginModal open={ loginModalOpen } handleClose={ handleLoginModalClose } />
-                            <NavDropdown.Item>Профиль</NavDropdown.Item>
-                            <NavDropdown.Item onClick={ handleLogoutModalOpen }>Выход</NavDropdown.Item>
-                            <LogoutModal open={ logoutModalOpen } handleClose={ handleLogoutModalClose } />
+                            { renderUserLinks }
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            <LoginModal open={ loginModalOpen } handleClose={ handleLoginModalOpen(false) } />
+            <LogoutModal open={ logoutModalOpen } handleClose={ handleLogoutModalOpen(false) } />
             <Outlet />
         </>
-        // <Box sx={ { display: 'flex' } }>
-        //     <CssBaseline />
-        //     <AppBar position="fixed" open={ navbarOpen }>
-        //         <Toolbar>
-        //             <IconButton
-        //                 color="inherit"
-        //                 aria-label="open drawer"
-        //                 onClick={ handleDrawerOpen }
-        //                 edge="start"
-        //                 sx={ { mr: 2, ...(navbarOpen && { display: 'none' }) } }>
-        //                 <MenuIcon />
-        //             </IconButton>
-        //             <Typography variant="h6" noWrap component="div">
-        //                 { getNameFromVariant(variant) }
-        //             </Typography>
-        //             <Box marginLeft={ 'auto' }>
-        //                 <IconButton
-        //                     size="large"
-        //                     aria-label="account of current user"
-        //                     aria-controls="menu-appbar"
-        //                     aria-haspopup="true"
-        //                     onClick={ handleUserMenuChange }
-        //                     color="inherit">
-        //                     <AccountCircle />
-        //                 </IconButton>
-        //                 <Menu
-        //                     id="menu-appbar"
-        //                     anchorEl={ userMenuOpen }
-        //                     anchorOrigin={ {
-        //                         vertical: 'top',
-        //                         horizontal: 'right',
-        //                     } }
-        //                     keepMounted
-        //                     transformOrigin={ {
-        //                         vertical: 'top',
-        //                         horizontal: 'right',
-        //                     } }
-        //                     open={ Boolean(userMenuOpen) }
-        //                     onClose={ handleUserMenuClose }>
-        //                     <MenuItem onClick={ handleLoginModalOpen }>Авторизоваться</MenuItem>
-        //                     <LoginModal open={ loginModalOpen } handleClose={ handleLoginModalClose } />
-        //                     <MenuItem onClick={ handleUserMenuClose }>Профиль</MenuItem>
-        //                     <MenuItem onClick={ handleLogoutModalOpen }>Выйти</MenuItem>
-        //                     <LogoutModal open={ logoutModalOpen } handleClose={ handleLogoutModalClose } />
-        //                 </Menu>
-        //             </Box>
-        //         </Toolbar>
-        //     </AppBar>
-        //     <Drawer
-        //         sx={ {
-        //             width: drawerWidth,
-        //             flexShrink: 0,
-        //             '& .MuiDrawer-paper': {
-        //                 width: drawerWidth,
-        //                 boxSizing: 'border-box',
-        //             },
-        //         } }
-        //         variant="persistent"
-        //         anchor="left"
-        //         open={ navbarOpen }>
-        //         <DrawerHeader>
-        //             <Typography variant="h6" noWrap component="div" marginX={ 'auto' }>
-        //                 Навигация
-        //             </Typography>
-        //             <IconButton onClick={ handleDrawerClose }>
-        //                 { theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon /> }
-        //             </IconButton>
-        //         </DrawerHeader>
-        //         <Divider />
-        //         <List>
-        //             { navLinks.map((link) => (
-        //                 <ListItem key={ link.name } disablePadding>
-        //                     <RouterLink to={ link.link } text={ link.name } icon={ link.icon } />
-        //                 </ListItem>
-        //             )) }
-        //         </List>
-        //         <Divider />
-        //         <List>
-        //             <ListItem disablePadding>
-        //                 <RouterLink to={ '/deputat' } text={ 'Перейти в панель депутата' } icon={ EmojiPeople } />
-        //             </ListItem>
-        //             <ListItem disablePadding>
-        //                 <RouterLink to={ '/admin' } text={ 'Перейти в панель админа' }
-        //                             icon={ AdminPanelSettingsIcon } />
-        //             </ListItem>
-        //         </List>
-        //     </Drawer>
-        //     <Main open={ navbarOpen }>
-        //         <DrawerHeader />
-        //         <Outlet />
-        //     </Main>
-        // </Box>
     );
 }

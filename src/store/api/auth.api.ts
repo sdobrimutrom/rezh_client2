@@ -46,7 +46,7 @@ export const authApi = commonApi.injectEndpoints({
         }),
         getMe: builder.query<IUser, null>({
             query() {
-                return { url: 'auth/me', method: 'GET' };
+                return { url: 'users/me', method: 'GET' };
             },
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
@@ -55,7 +55,7 @@ export const authApi = commonApi.injectEndpoints({
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            },
         })
     })
 });

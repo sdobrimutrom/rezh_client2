@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useAddAnswerMutation, useGetRequestQuery } from '../../../store/api/requests.api';
 import RequestItem from '../../../components/requests/RequestItem';
 import Container from 'react-bootstrap/Container';
-import { Button, Form } from 'react-bootstrap';
+import { Breadcrumb, Button, Form } from 'react-bootstrap';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import FileUpload from '../../../components/common/FileUpload/FileUpload';
 import React, { useEffect, useMemo } from 'react';
@@ -11,6 +11,9 @@ import { toFormData } from '../../../helpers/form-data.helper';
 import { Store } from 'react-notifications-component';
 import { ErrorNotification, SuccessNotification } from '../../../helpers/consts';
 import * as yup from 'yup';
+import { LinkContainer } from 'react-router-bootstrap';
+import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
+import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
 
 const validationSchema = yup.object({
     text: yup.string().required('Необходимое поле'),
@@ -49,8 +52,6 @@ export default function Request() {
         });
     }, [request?.answer?.text, request?.frequent]);
 
-    console.log(form.getValues());
-
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         const formData = toFormData(Object.entries(data));
         formData.append('request_id', id || '-1');
@@ -64,12 +65,17 @@ export default function Request() {
             });
     };
 
-    return <Container>
+    return <Container className={ 'py-3 d-flex flex-column gap-3' }>
+        <BreadcrumbGroup>
+            <BreadcrumbItem to={ '/' } label={ 'Главная' } />
+            <BreadcrumbItem to={ '/deputat/requests' } label={ 'Обращения' } />
+            <BreadcrumbItem to={ `/deputat/request/${ id }` } label={ 'Обращение' } isActive={ true } />
+        </BreadcrumbGroup>
         { request && <RequestItem request={ request } /> }
-        <FormProvider { ...form }>
+        { request && <FormProvider { ...form }>
             <Form onSubmit={ form.handleSubmit(onSubmit) }
                   className={ 'd-flex flex-column gap-4 ' }>
-                <Form.Group controlId="formTitle">
+                <Form.Group controlId="formText">
                     <Form.Label>Введите текст ответа</Form.Label>
                     <Controller control={ form.control } name="text"
                                 render={ ({ field: { onChange, value, ref } }) => (
@@ -84,7 +90,7 @@ export default function Request() {
                     <Form.Label>Прикрепить файлы к ответу</Form.Label>
                     <FileUpload limit={ 8 } multiple={ true } name={ 'files' } />
                 </Form.Group>
-                <Form.Group>
+                <Form.Group controlId={ 'formFrequent' }>
                     <Controller name={ 'frequent' } render={
                         ({ field: { onChange, value, ref } }) => (
                             <Form.Check
@@ -100,6 +106,6 @@ export default function Request() {
                             variant={ 'dark' }>Ответить</Button>
                 </Form.Group>
             </Form>
-        </FormProvider>
+        </FormProvider> }
     </Container>;
 }

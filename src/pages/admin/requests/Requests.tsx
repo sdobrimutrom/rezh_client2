@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import { PAGE_LIMIT } from '../../../helpers/consts';
 import { useGetRequestsQuery } from '../../../store/api/requests.api';
 import RequestItem from '../../../components/requests/RequestItem';
+import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
+import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
 
 export default function Requests() {
     const [page, setPage] = useState(1);
@@ -18,7 +20,11 @@ export default function Requests() {
     const { data: requests, } = useGetRequestsQuery({ limit: PAGE_LIMIT, page: page });
 
     return (
-        <Container className={ 'py-3 d-flex flex-column gap-3' }>
+        <Container className={ 'd-flex flex-column gap-3' }>
+            <BreadcrumbGroup>
+                <BreadcrumbItem to={ '/' } label={ 'Главная' } />
+                <BreadcrumbItem to={ '/admin/requests' } label={ 'Обращения' } isActive={ true } />
+            </BreadcrumbGroup>
             <Row className={ 'justify-content-between' }>
                 <Col>
                     <h3>Обращения</h3>
@@ -33,7 +39,7 @@ export default function Requests() {
                 </Row>
                 <Row className={'d-flex flex-column gap-3 container'}>
                     { requests?.rows?.map((request) => {
-                        return <RequestItem key={request.id} request={request}/>;
+                        return <RequestItem key={request.id} request={request} withModeratingUI={true}/>;
                     }) }
                 </Row>
                 <Row>

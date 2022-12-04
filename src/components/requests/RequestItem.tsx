@@ -17,18 +17,7 @@ interface NewsItemProps {
     withAnsweringUI?: boolean;
 }
 
-export default function RequestItem({ request, withModeratingUI = false, withAnsweringUI = true }: NewsItemProps) {
-
-    const [moderateRequest, moderateMeta] = useModerateRequestMutation();
-    const approveRequest = () => {
-        moderateRequest({
-            id: request.id,
-            moderated: true,
-            approved: true,
-            moderating_text: undefined,
-        });
-    };
-
+export default function RequestItem({ request, withModeratingUI = false, withAnsweringUI = false }: NewsItemProps) {
     return (
         <Card className={ 'p-0' }>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>

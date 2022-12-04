@@ -30,6 +30,7 @@ export default function MainRouter() {
                     <Route index element={ <Main /> } />
                     <Route path="forbidden" element={ <Forbidden /> } />
                     <Route path="*" element={ <NotFound /> } />
+                    <Route path="registration"/>
                     <Route path="deputats" element={ <Deputats /> } />
 
                     <Route path="news">
