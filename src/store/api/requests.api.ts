@@ -7,7 +7,7 @@ export const requestsApi = commonApi.injectEndpoints({
         getRequests: builder.query<{ count: number; rows: IRequest[] }, IRequestsQueryParams>({
             query: ({ limit, page, query, order }) => ({
                 url: 'requests',
-                params: {
+                body: {
                     limit,
                     page,
                     query,

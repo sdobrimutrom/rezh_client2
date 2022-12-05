@@ -7,11 +7,10 @@ import { useDeleteNewsMutation, useGetNewsQuery } from '../../../store/api/news.
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { FormGroup, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
 import NewsItem from '../../../components/news/NewsItem';
-import * as queryString from 'querystring';
 
 export default function News() {
     const navigate = useNavigate();
@@ -26,8 +25,8 @@ export default function News() {
     const { data: news, ...newsMeta } = useGetNewsQuery({
         limit: PAGE_LIMIT,
         page: page,
-        query: queryString.stringify(filters),
     });
+
     const [deleteNews, deleteNewsMeta] = useDeleteNewsMutation();
 
     const handleDeleteNews = (id: number) => () => {

@@ -6,7 +6,7 @@ export const usersApi = commonApi.injectEndpoints({
         getDeputats: builder.query<{ count: number; rows: IUser[] }, IUsersQueryParams>({
             query: ({ limit, page }) => ({
                 url: 'users/deputats',
-                params: {
+                body: {
                     limit,
                     page,
                 },

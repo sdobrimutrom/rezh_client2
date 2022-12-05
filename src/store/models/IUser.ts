@@ -8,6 +8,7 @@ export interface IUser {
     first_name: string;
     second_name: string;
     father_name: string;
+    avatar: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -21,4 +22,9 @@ export interface IUserRole {
 export interface IUsersQueryParams {
     limit?: number;
     page?: number;
+    query?: IUsersQuery;
+}
+
+export interface IUsersQuery {
+    search?: string;
 }
