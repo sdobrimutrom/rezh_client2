@@ -41,19 +41,23 @@ export default function RequestsFilters({ filters, setFilters }: RequestsFilters
         setSelectMenuIsOpen(value);
     };
 
-    const handleSelectChange = (deputat_id: number| undefined) => {
+    const handleSelectChange = (value: number | undefined | null) => {
+        const deputat_id = value !== null ? value : undefined
         setFilters({ ...filters, deputat_id });
     };
 
     const { data, isLoading } = useGetDeputatsQuery({});
 
     const selectOptions = useMemo(() => {
-        return data?.rows?.map((user) => {
-            return {
-                value: user.id,
-                label: `${ user.second_name } ${ user.first_name } ${ user.father_name }`,
-            };
-        });
+        return [
+            { value: null, label: 'Очистить' },
+            ...(data && data.rows ? data.rows.map((user) => {
+                return {
+                    value: user.id,
+                    label: `${ user.second_name } ${ user.first_name } ${ user.father_name }`,
+                };
+            }) : [{ value: null, label: 'Ничего не найдено' }]),
+        ];
     }, [data]);
 
     return (
@@ -69,9 +73,9 @@ export default function RequestsFilters({ filters, setFilters }: RequestsFilters
                     <ToggleButtonGroup id={ 'moderated' } className={ 'd-block' } name={ 'moderated' } type={ 'radio' }
                                        value={ String(filters['moderated']) }
                                        onChange={ handleSwitchChange('moderated') }>
-                        <ToggleButton id={ 'moderated-all' } value={ 'undefined' }>Показать все</ToggleButton>
-                        <ToggleButton id={ 'moderated-true' } value={ 'true' }>Обработанные</ToggleButton>
-                        <ToggleButton id={ 'moderated-false' } value={ 'false' }>Необработанные</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'moderated-all' } value={ 'undefined' }>Показать все</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'moderated-true' } value={ 'true' }>Обработанные</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'moderated-false' } value={ 'false' }>Необработанные</ToggleButton>
                     </ToggleButtonGroup>
                 </FormGroup>
                 <FormGroup>
@@ -79,9 +83,9 @@ export default function RequestsFilters({ filters, setFilters }: RequestsFilters
                     <ToggleButtonGroup id={ 'approved' } className={ 'd-block' } name={ 'approved' } type={ 'radio' }
                                        value={ String(filters['approved']) }
                                        onChange={ handleSwitchChange('approved') }>
-                        <ToggleButton id={ 'approved-all' } value={ 'undefined' }>Показать все</ToggleButton>
-                        <ToggleButton id={ 'approved-true' } value={ 'true' }>Подтвержденные</ToggleButton>
-                        <ToggleButton id={ 'approved-false' } value={ 'false' }>Неподтвержденные</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'approved-all' } value={ 'undefined' }>Показать все</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'approved-true' } value={ 'true' }>Подтвержденные</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'approved-false' } value={ 'false' }>Неподтвержденные</ToggleButton>
                     </ToggleButtonGroup>
                 </FormGroup>
                 <FormGroup>
@@ -89,9 +93,9 @@ export default function RequestsFilters({ filters, setFilters }: RequestsFilters
                     <ToggleButtonGroup id={ 'frequent' } className={ 'd-block' } name={ 'frequent' } type={ 'radio' }
                                        value={ String(filters['frequent']) }
                                        onChange={ handleSwitchChange('frequent') }>
-                        <ToggleButton id={ 'frequent-all' } value={ 'undefined' }>Показать все</ToggleButton>
-                        <ToggleButton id={ 'frequent-true' } value={ 'true' }>Часто задаваемые</ToggleButton>
-                        <ToggleButton id={ 'frequent-false' } value={ 'false' }>Не часто задаваемые</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'frequent-all' } value={ 'undefined' }>Показать все</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'frequent-true' } value={ 'true' }>Часто задаваемые</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'frequent-false' } value={ 'false' }>Не часто задаваемые</ToggleButton>
                     </ToggleButtonGroup>
                 </FormGroup>
                 <FormGroup>
