@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { INews } from '../../store/models/INews';
 
+
 interface NewsItemProps {
     news: INews;
 }
@@ -16,7 +17,7 @@ export default function NewsItem({ news }: NewsItemProps) {
                 <Card.Text>{news.content}</Card.Text>
                 <Button variant="primary">Читать далее</Button>
             </Card.Body>
-            <Card.Footer className="text-muted">createdAt</Card.Footer>
+            <Card.Footer className="text-muted">Дата создания: { news.created_by }</Card.Footer>
         </Card>
     );
 
