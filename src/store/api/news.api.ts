@@ -1,5 +1,3 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
 import { INews, INewsQueryParams } from '../models/INews';
 import { commonApi } from './common.api';
 
@@ -7,7 +5,8 @@ export const newsApi = commonApi.injectEndpoints({
     endpoints: (builder) => ({
         getNews: builder.query<{ count: number; rows: INews[] }, INewsQueryParams>({
             query: ({ limit, page, query, order }) => ({
-                url: 'news',
+                url: 'news/get',
+                method: 'POST',
                 body: {
                     limit,
                     page,

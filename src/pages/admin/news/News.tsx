@@ -11,11 +11,13 @@ import { Row } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
 import NewsItem from '../../../components/news/NewsItem';
+import NewsFilters from '../../../components/news/NewsFilters';
+import { INewsQuery } from '../../../store/models/INews';
 
 export default function News() {
     const navigate = useNavigate();
 
-    const [filters, setFilters] = useState({ search: '' });
+    const [filters, setFilters] = useState<INewsQuery>({});
     const [page, setPage] = useState(0);
 
     const handleChangePage = (event: OnChangeEventType) => {
@@ -25,6 +27,7 @@ export default function News() {
     const { data: news, ...newsMeta } = useGetNewsQuery({
         limit: PAGE_LIMIT,
         page: page,
+        query: filters,
     });
 
     const [deleteNews, deleteNewsMeta] = useDeleteNewsMutation();
@@ -50,9 +53,9 @@ export default function News() {
             <Row>
                 <hr />
             </Row>
-            <Row>
+            <Row className={ 'd-flex flex-column gap-3' }>
                 <Row>
-
+                    <NewsFilters filters={ filters } setFilters={ setFilters } />
                 </Row>
                 <Row>
                     { news?.rows?.map((newsItem) => {

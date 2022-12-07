@@ -24,10 +24,10 @@ export default function DeputatSelect({ name }: IDeputatSelectProps) {
         return data?.rows?.map((user) => {
             return {
                 value: user.id,
-                label: `${user.second_name} ${user.first_name} ${user.father_name}`,
-            }
-        })
-    }, [data])
+                label: `${ user.second_name } ${ user.first_name } ${ user.father_name }`,
+            };
+        });
+    }, [data]);
 
     const {
         control,

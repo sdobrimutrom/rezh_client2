@@ -15,7 +15,5 @@ export default function ProtectedRoute({ redirectPath = '/unforbidden', roles }:
     const userRoles = getRolesFromToken(token);
     const isAllowed = roles.filter((role) => userRoles.includes(role)).length > 0;
 
-    console.log(userRoles);
-
     return isAllowed ? <Outlet /> : <Navigate to={redirectPath} />;
 }

@@ -38,6 +38,7 @@ export interface IRequestsQueryParams {
 }
 
 export interface IRequestsQuery {
+    search?: string;
     user_id?: string;
     deputat_id?: number;
     frequent?: boolean;
@@ -46,6 +47,6 @@ export interface IRequestsQuery {
 }
 
 export interface IRequestsOrder {
-    order_by: string;
-    asc: boolean;
+    order_by?: string;
+    asc?: boolean;
 }
