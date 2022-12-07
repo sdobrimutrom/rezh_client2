@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import newsImage_1 from "../Images/News1.png";
 
 import NewsItem from '../../../components/news/NewsItem';
 import { INews } from '../../../store/models/INews';
@@ -12,37 +13,37 @@ export default function News() {
     const newsMocks: INews[] = [
         {
             id: 1,
-            title: 'Новость1',
-            content: 'В свердловской области убили негра айайайай',
-            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            title: 'Media heading',
+            content: 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.',
+            image: 'https://thumbs.dreamstime.com/b/wispy-clouds-horizontal-sky-panorama-high-altitude-wind-swept-blue-147437736.jpg',
             created_by: 1,
         },
         {
             id: 2,
-            title: 'Новость2',
-            content: 'В свердловской области убили негра айайайай',
-            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            title: 'Media heading',
+            content: 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.',
+            image: 'https://thumbs.dreamstime.com/b/wispy-clouds-horizontal-sky-panorama-high-altitude-wind-swept-blue-147437736.jpg',
             created_by: 1,
         },
         {
             id: 3,
-            title: 'Новость3',
-            content: 'В свердловской области убили негра айайайай',
-            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            title: 'Media heading',
+            content: 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.',
+            image: 'https://thumbs.dreamstime.com/b/wispy-clouds-horizontal-sky-panorama-high-altitude-wind-swept-blue-147437736.jpg',
             created_by: 1,
         },
         {
             id: 4,
-            title: 'Новость4',
-            content: 'В свердловской области убили негра айайайай',
-            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            title: 'Media heading',
+            content: 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.',
+            image: 'https://thumbs.dreamstime.com/b/wispy-clouds-horizontal-sky-panorama-high-altitude-wind-swept-blue-147437736.jpg',
             created_by: 1,
         },
         {
             id: 5,
-            title: 'Новость5',
-            content: 'В свердловской области убили негра айайайай',
-            image: 'https://www.meme-arsenal.com/memes/80b8106804cb0b04d4acb86fa4b88633.jpg',
+            title: 'Media heading',
+            content: 'Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.',
+            image: 'https://thumbs.dreamstime.com/b/wispy-clouds-horizontal-sky-panorama-high-altitude-wind-swept-blue-147437736.jpg',
             created_by: 1,
         }
     ];
