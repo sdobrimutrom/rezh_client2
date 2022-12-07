@@ -6,8 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import sliderImage_1 from "../Images/slider1.png";
-import sliderImage_2 from "../Images/slider2.png";
-import sliderImage_3 from "../Images/slider3.png";
 import newsImage_1 from "../Images/News1.png";
 import newsImage_2 from "../Images/News2.png";
 import newsImage_3 from "../Images/News3.png";
@@ -148,14 +146,14 @@ function ProjectsSlider() {
                         style = {{"height": "600px"}}
                     />
                     <Carousel.Caption>
-                        <h3>Саня!</h3>
-                        <p>Здарова брат!</p>
+                        <h3>Title</h3>
+                        <p>Text</p>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={sliderImage_2}
+                        src={sliderImage_1}
                         alt="Second slide"
                         style = {{"height": "600px"}}
                     />
@@ -168,7 +166,7 @@ function ProjectsSlider() {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={sliderImage_3}
+                        src={sliderImage_1}
                         alt="Third slide"
                         style = {{"height": "600px"}}
                     />
