@@ -4,25 +4,17 @@ export default function Forbidden() {
     const navigate = useNavigate();
 
     return (
-        <div>Нет доступа</div>
-        // <Box
-        //     sx={{
-        //         display: 'flex',
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //         minHeight: '100vh'
-        //     }}>
-        //     <Container maxWidth="md">
-        //         <Grid container spacing={2}>
-        //             <Grid xs={6}>
-        //                 <Typography variant="h1">403</Typography>
-        //                 <Typography variant="h6">Страница которую вы ищете недоступна для вас</Typography>
-        //                 <Button variant="contained" onClick={() => navigate('/')}>
-        //                     На главную
-        //                 </Button>
-        //             </Grid>
-        //         </Grid>
-        //     </Container>
-        // </Box>
+        <div className="d-flex align-items-center justify-content-center vh-100">
+            <div className="text-center">
+                <h1 className="display-1 fw-bold">403</h1>
+                <p className="fs-3">
+                    <span className="text-danger">Упс!</span>Доступ запрещён.
+                </p>
+                <p className="lead">
+                    Доступ к этой странице Вам запрещён.
+                </p>
+                <button type="button" className="btn btn-primary" onClick={ () => navigate('/') }>На главную</button>
+            </div>
+        </div>
     );
 }

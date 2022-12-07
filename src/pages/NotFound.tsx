@@ -4,25 +4,17 @@ export default function NotFound() {
     const navigate = useNavigate();
 
     return (
-        <div>Не найдено</div>
-        // <Box
-        //     sx={{
-        //         display: 'flex',
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //         minHeight: '100vh'
-        //     }}>
-        //     <Container maxWidth="md">
-        //         <Grid container spacing={2}>
-        //             <Grid xs={6}>
-        //                 <Typography variant="h1">404</Typography>
-        //                 <Typography variant="h6">Страницы которую вы ищете не существует</Typography>
-        //                 <Button variant="contained" onClick={() => navigate('/')}>
-        //                     На главную
-        //                 </Button>
-        //             </Grid>
-        //         </Grid>
-        //     </Container>
-        // </Box>
+        <div className="d-flex align-items-center justify-content-center vh-100">
+            <div className="text-center">
+                <h1 className="display-1 fw-bold">404</h1>
+                <p className="fs-3">
+                    <span className="text-danger">Упс!</span>Страница не найдена.
+                </p>
+                <p className="lead">
+                    Страница, которую вы ищете - не существует.
+                </p>
+                <button type="button" className="btn btn-primary" onClick={ () => navigate('/') }>На главную</button>
+            </div>
+        </div>
     );
 }

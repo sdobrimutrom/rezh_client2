@@ -9,6 +9,9 @@ import sliderImage_1 from "../Images/slider1.png";
 import newsImage_1 from "../Images/News1.png";
 import newsImage_2 from "../Images/News2.png";
 import newsImage_3 from "../Images/News3.png";
+import { useNavigate } from 'react-router-dom';
+
+
 
 function FirstMainBlock() {
     return(
@@ -49,6 +52,7 @@ function FirstMainBlock() {
 }
 
 function NewsBlock() {
+    const navigate = useNavigate()
     return(
         <>
             <Container className = "ms-2" fluid>
@@ -128,7 +132,7 @@ function NewsBlock() {
                 </Row>
             </Container>
             <div className = "d-flex justify-content-end mb-3 me-3">
-                <button type="button" className="btn btn-secondary">Перейти к новостям</button>
+                <button type="button" className="btn btn-secondary" onClick={ () => navigate('/news') }>Перейти к новостям</button>
             </div>
         </>
     );
