@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Filters from '../../../components/Filters';
 import { PAGE_LIMIT } from '../../../helpers/consts';
 import { getTotalPages } from '../../../helpers/pagination.helper';
 import { useDeleteNewsMutation, useGetNewsQuery } from '../../../store/api/news.api';
@@ -11,19 +10,23 @@ import Button from 'react-bootstrap/Button';
 import { Row } from 'react-bootstrap';
 import { PlusLg } from 'react-bootstrap-icons';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
-import NewsItem from '../../../components/NewsItem';
+import NewsItem from '../../../components/news/NewsItem';
 
 export default function News() {
     const navigate = useNavigate();
 
-    const [filters, setFilters] = useState({});
-    const [page, setPage] = useState(1);
+    const [filters, setFilters] = useState({ search: '' });
+    const [page, setPage] = useState(0);
 
     const handleChangePage = (event: OnChangeEventType) => {
         setPage(event.target.value);
     };
 
-    const { data: news, ...newsMeta } = useGetNewsQuery({ limit: PAGE_LIMIT, page: page });
+    const { data: news, ...newsMeta } = useGetNewsQuery({
+        limit: PAGE_LIMIT,
+        page: page,
+    });
+
     const [deleteNews, deleteNewsMeta] = useDeleteNewsMutation();
 
     const handleDeleteNews = (id: number) => () => {
@@ -53,7 +56,7 @@ export default function News() {
                 </Row>
                 <Row>
                     { news?.rows?.map((newsItem) => {
-                        return <NewsItem news={newsItem} key={newsItem.id}/>;
+                        return <NewsItem news={ newsItem } key={ newsItem.id } />;
                     }) }
                 </Row>
                 <Row>

@@ -6,7 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import newsImage_1 from "../Images/News1.png";
 
-import NewsItem from '../../../components/NewsItem';
+import NewsItem from '../../../components/news/NewsItem';
 import { INews } from '../../../store/models/INews';
 
 export default function News() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { INews } from '../store/models/INews';
+import { INews } from '../../store/models/INews';
 
 
 interface NewsItemProps {

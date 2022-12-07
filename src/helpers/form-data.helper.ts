@@ -5,7 +5,7 @@ export const toFormData = (data: [string, any][]) => {
             for (let i = 0; i < e[1].length; i++) {
                 formData.append(e[0], e[1][i]);
             }
-        } else if (e[1] && e[0]) {
+        } else if (e[0] && (e[1] || e[1] === false)) {
             formData.append(e[0], e[1]);
         }
     });

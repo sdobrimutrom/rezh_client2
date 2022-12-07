@@ -8,7 +8,7 @@ export const newsApi = commonApi.injectEndpoints({
         getNews: builder.query<{ count: number; rows: INews[] }, INewsQueryParams>({
             query: ({ limit, page, query, order }) => ({
                 url: 'news',
-                params: {
+                body: {
                     limit,
                     page,
                     query,

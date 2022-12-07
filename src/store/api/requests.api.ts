@@ -7,7 +7,7 @@ export const requestsApi = commonApi.injectEndpoints({
         getRequests: builder.query<{ count: number; rows: IRequest[] }, IRequestsQueryParams>({
             query: ({ limit, page, query, order }) => ({
                 url: 'requests',
-                params: {
+                body: {
                     limit,
                     page,
                     query,
@@ -16,8 +16,8 @@ export const requestsApi = commonApi.injectEndpoints({
             }),
             providesTags: ['Requests', 'Answers'],
         }),
-        getRequest: builder.query<IRequest, { id: number }>({
-            query: ({ id }) => `requests/${ id }`,
+        getRequest: builder.query<IRequest, number | undefined>({
+            query: (id) => `requests/${ id }`,
             providesTags: ['Requests', 'Answers'],
         }),
         addRequest: builder.mutation<IRequest, FormData>({
@@ -45,7 +45,7 @@ export const requestsApi = commonApi.injectEndpoints({
         }),
         moderateRequest: builder.mutation<IRequest, IModerateRequestDto>({
             query: (moderateDto) => ({
-                url: `requests/moderate${ moderateDto.id }`,
+                url: `requests/moderate/${ moderateDto.id }`,
                 method: 'PUT',
                 body: moderateDto,
             }),
@@ -53,18 +53,18 @@ export const requestsApi = commonApi.injectEndpoints({
         }),
         addAnswer: builder.mutation<IAnswer, FormData>({
             query: (answer) => ({
-                url: `requests/answers/${ answer.get('request_id') }`,
+                url: `requests_answers/${ answer.get('request_id') }`,
                 method: 'POST',
                 body: answer,
             }),
-            invalidatesTags: ['Answers'],
+            invalidatesTags: ['Answers', 'Requests'],
         }),
         deleteAnswer: builder.mutation<string, { id: number }>({
             query: ({ id }) => ({
-                url: `requests/answers/${ id }`,
+                url: `requests_answers/${ id }`,
                 method: 'DELETE',
             }),
-            invalidatesTags: ['Answers'],
+            invalidatesTags: ['Answers', 'Requests'],
         }),
     }),
 });
@@ -73,6 +73,7 @@ export const {
     useGetRequestsQuery,
     useGetRequestQuery,
     useAddRequestMutation,
+    useModerateRequestMutation,
     useEditRequestMutation,
     useDeleteRequestMutation,
     useAddAnswerMutation,
