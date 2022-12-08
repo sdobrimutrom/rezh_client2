@@ -1,16 +1,16 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { IRequest } from '../../store/models/IRequest';
+import { IRequest } from '../../../store/models/IRequest';
 import { Accordion } from 'react-bootstrap';
 import AccordionHeader from 'react-bootstrap/AccordionHeader';
 import AccordionBody from 'react-bootstrap/AccordionBody';
-import { getFileURL } from '../../helpers/url.helper';
-import { moderatingText } from '../../helpers/consts';
-import { useModerateRequestMutation } from '../../store/api/requests.api';
+import { getFileURL } from '../../../helpers/url.helper';
+import { moderatingText } from '../../../helpers/consts';
+import { useModerateRequestMutation } from '../../../store/api/requests.api';
 import Button from 'react-bootstrap/Button';
 import RequestItemModerate from './RequestItemModerate';
 import RequestItemAnswer from './RequestItemAnswer';
-import { getDateString } from '../../helpers/date.helper';
+import { getDateString } from '../../../helpers/date.helper';
 
 interface NewsItemProps {
     request: IRequest;

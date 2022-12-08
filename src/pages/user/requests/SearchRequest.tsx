@@ -2,7 +2,7 @@ import { useGetRequestQuery } from '../../../store/api/requests.api';
 import { ChangeEvent, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Form } from 'react-bootstrap';
-import RequestItem from '../../../components/requests/RequestItem';
+import RequestItem from '../../../components/requests/RequestItem/RequestItem';
 import Row from 'react-bootstrap/Row';
 
 export default function SearchRequest() {

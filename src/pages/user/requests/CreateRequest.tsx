@@ -92,7 +92,7 @@ export default function CreateRequest() {
                     <FileUpload limit={ 8 } multiple={ true } name={ 'files' } />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Выберите депутата, которому будет направлено обращение</Form.Label>
+                    <Form.Label>Выберите депутата, которому хотите адресовать обращение</Form.Label>
                     <DeputatSelect name={'deputat_id'} />
                 </Form.Group>
                 <hr />

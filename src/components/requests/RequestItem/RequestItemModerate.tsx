@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import { useModerateRequestMutation } from '../../store/api/requests.api';
+import { useModerateRequestMutation } from '../../../store/api/requests.api';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Alert, FormControl, FormGroup, FormLabel, Modal } from 'react-bootstrap';

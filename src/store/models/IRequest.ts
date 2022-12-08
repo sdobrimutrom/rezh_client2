@@ -39,11 +39,12 @@ export interface IRequestsQueryParams {
 
 export interface IRequestsQuery {
     search?: string;
-    user_id?: string;
+    user_id?: number;
     deputat_id?: number;
     frequent?: boolean;
     moderated?: boolean;
     approved?: boolean;
+    answered?: boolean;
 }
 
 export interface IRequestsOrder {

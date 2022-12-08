@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAddAnswerMutation, useGetRequestQuery } from '../../../store/api/requests.api';
-import RequestItem from '../../../components/requests/RequestItem';
+import RequestItem from '../../../components/requests/RequestItem/RequestItem';
 import Container from 'react-bootstrap/Container';
 import { Breadcrumb, Button, Form } from 'react-bootstrap';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
