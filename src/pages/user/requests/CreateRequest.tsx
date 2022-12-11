@@ -2,7 +2,6 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import * as yup from 'yup';
 import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { toFormData } from '../../../helpers/form-data.helper';
 import { Store } from 'react-notifications-component';
 import { ErrorNotification, SuccessNotification } from '../../../helpers/consts';
@@ -10,6 +9,7 @@ import { useAddRequestMutation } from '../../../store/api/requests.api';
 import { Button, Form } from 'react-bootstrap';
 import FileUpload from '../../../components/common/FileUpload/FileUpload';
 import DeputatSelect from '../../../components/DeputatSelect';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const validationSchema = yup.object({
     title: yup.string().required('Необходимое поле'),

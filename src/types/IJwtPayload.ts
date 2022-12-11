@@ -1,5 +1,6 @@
 import { IRole } from './../store/models/IRole';
-export interface JwtPayload {
+
+export interface IJwtPayload {
     email: string;
     id: number;
     roles: IRole[];

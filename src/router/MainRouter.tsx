@@ -16,12 +16,16 @@ import Frequency from '../pages/user/requests/Frequency';
 import Request from '../pages/user/requests/Request';
 import Requests from '../pages/user/requests/Requests';
 import { useGetMeQuery } from '../store/api/auth.api';
-import { useAppSelector } from '../hooks/redux';
 import SearchRequest from '../pages/user/requests/SearchRequest';
 import Deputats from '../pages/Deputats';
+import Registration from '../pages/Registration';
+import BeforeAfter from '../pages/before-after/BeforeAfter';
+import BeforeAfterItem from '../pages/before-after/BeforeAfterItem';
 
 export default function MainRouter() {
-    const { isLoading, isFetching } = useGetMeQuery(null);
+    const { isLoading, isFetching } = useGetMeQuery(null, {
+        refetchOnMountOrArgChange: true,
+    });
 
     return (
         <BrowserRouter>
@@ -30,8 +34,12 @@ export default function MainRouter() {
                     <Route index element={ <Main /> } />
                     <Route path="forbidden" element={ <Forbidden /> } />
                     <Route path="*" element={ <NotFound /> } />
-                    <Route path="registration"/>
+                    <Route path="registration" element={<Registration />}/>
                     <Route path="deputats" element={ <Deputats /> } />
+                    <Route path="before_after">
+                        <Route index element={ <BeforeAfter /> } />
+                        <Route path=":id" element={ <BeforeAfterItem /> } />
+                    </Route>
 
                     <Route path="news">
                         <Route index element={ <News /> } />

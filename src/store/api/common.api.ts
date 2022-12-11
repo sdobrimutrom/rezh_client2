@@ -12,8 +12,8 @@ export const commonApi = createApi({
                 headers.set('Authorization', `Bearer ${token}`);
             }
             return headers;
-        }
+        },
     }),
-    tagTypes: ['News', 'User', 'Requests', 'Answers'],
+    tagTypes: ['News', 'User', 'Requests', 'Answers', 'Auth'],
     endpoints: (_) => ({})
 });

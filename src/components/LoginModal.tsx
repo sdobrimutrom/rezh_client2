@@ -4,11 +4,12 @@ import { Store } from 'react-notifications-component';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-import { useLoginMutation } from '../store/api/auth.api';
+import { useGetMeQuery, useLoginMutation } from '../store/api/auth.api';
 import { Button, Container, Form } from 'react-bootstrap';
-import { ErrorNotification } from '../helpers/consts';
+import { ErrorNotification, SuccessNotification } from '../helpers/consts';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Notification } from 'react-notifications-component/dist/src/components/Notification';
 
 interface LoginModalProps {
     open: boolean;
@@ -28,7 +29,7 @@ const validationSchema = yup.object({
 export default function LoginModal({ open, handleClose }: LoginModalProps) {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    const [login, { isLoading }] = useLoginMutation();
+    const [login, { isLoading, isSuccess }] = useLoginMutation();
 
     const {
         setError, handleSubmit, control, reset, formState: { errors }, getValues,
@@ -40,14 +41,15 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
         login({ ...data })
             .unwrap()
             .then(() => {
+                Store.addNotification({ ...SuccessNotification('Вы успешно авторизовались') });
                 handleClose();
             })
             .catch((error) => {
-                Store.addNotification({ ...ErrorNotification(error?.data?.message) });
+                Store.addNotification({ ...ErrorNotification(error?.data?.message || 'Произошла ошибка') });
             });
     };
 
-    const navigateTo = (to: string) => {
+    const navigateTo = (to: string) => () => {
         handleClose();
         navigate(to);
     };
@@ -98,7 +100,7 @@ export default function LoginModal({ open, handleClose }: LoginModalProps) {
                             Авторизоваться
                         </Button>
                         <div>или</div>
-                        <Button variant={ 'outline-dark' }>Зарегистрироваться</Button>
+                        <Button onClick={navigateTo('registration')} variant={ 'outline-dark' }>Зарегистрироваться</Button>
                     </Container>
                 </Modal.Footer>
             </Form>

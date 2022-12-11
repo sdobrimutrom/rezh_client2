@@ -1,5 +1,4 @@
 import { IRole } from './IRole';
-import { INewsOrder, INewsQuery } from './INews';
 
 export interface IUser {
     id: number;
@@ -27,4 +26,18 @@ export interface IUsersQueryParams {
 
 export interface IUsersQuery {
     search?: string;
+}
+
+export interface IRegistrationInput {
+    email: string;
+    password: string;
+    first_name: string;
+    second_name: string;
+    father_name: string;
+    avatar: string;
+}
+
+export interface ILoginInput {
+    email: string;
+    password: string;
 }

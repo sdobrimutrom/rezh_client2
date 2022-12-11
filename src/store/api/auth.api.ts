@@ -1,12 +1,7 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-import { LoginInput, RegistrationInput } from '../../types/user';
 import { IStatus } from '../models/IStatus';
-import { IUser } from '../models/IUser';
+import { IUser, ILoginInput, IRegistrationInput } from '../models/IUser';
 import { setUser } from '../reducers/userSlice';
 import { commonApi } from './common.api';
-
-const BASE_URL = process.env.REACT_APP_API_URL as string;
 
 interface AuthResponse extends IStatus {
     access_token: string;
@@ -14,35 +9,37 @@ interface AuthResponse extends IStatus {
 
 export const authApi = commonApi.injectEndpoints({
     endpoints: (builder) => ({
-        registration: builder.mutation<AuthResponse, RegistrationInput>({
+        registration: builder.mutation<AuthResponse, IRegistrationInput>({
             query: (data) => ({
                 url: 'auth/registration',
                 method: 'POST',
-                body: data
+                body: data,
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
                     localStorage.setItem('access_token', data.access_token);
+                    const getMe = await dispatch(authApi.endpoints.getMe.initiate(null));
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            },
         }),
-        login: builder.mutation<AuthResponse, LoginInput>({
+        login: builder.mutation<AuthResponse, ILoginInput>({
             query: (data) => ({
                 url: 'auth/login',
                 method: 'POST',
-                body: data
+                body: data,
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled;
                     localStorage.setItem('access_token', data.access_token);
+                    const getMe = await dispatch(authApi.endpoints.getMe.initiate(null));
                 } catch (e) {
                     console.log(e);
                 }
-            }
+            },
         }),
         getMe: builder.query<IUser, null>({
             query() {
@@ -56,8 +53,8 @@ export const authApi = commonApi.injectEndpoints({
                     console.log(e);
                 }
             },
-        })
-    })
+        }),
+    }),
 });
 
 export const { useRegistrationMutation, useLoginMutation, useGetMeQuery } = authApi;

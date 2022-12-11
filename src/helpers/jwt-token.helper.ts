@@ -1,9 +1,9 @@
 import jwt_decode from 'jwt-decode';
 
-import { JwtPayload } from '../types/jwt-payload';
+import { IJwtPayload } from '../types/IJwtPayload';
 
 export const getRolesFromToken = (token: string): string[] => {
-    const decoded = jwt_decode(token) as JwtPayload;
+    const decoded = jwt_decode(token) as IJwtPayload;
     const userRoles = decoded?.roles?.map((role) => role.value);
     return userRoles;
 };
