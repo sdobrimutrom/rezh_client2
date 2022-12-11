@@ -4,15 +4,14 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { PersonCircle } from 'react-bootstrap-icons';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-import { RouterLink } from '../router/components/RouterLink';
-import { getNavLinksFromVariant } from './consts/navbarLinks';
-import { Variant } from './consts/navbarVariant';
 import LoginModal from '../components/LoginModal';
 import LogoutModal from '../components/LogoutModal';
 import { useAppSelector } from '../hooks/redux';
+import { renderLinks } from './NavbarHelpers';
+import { EVariant, getNameFromVariant } from './consts';
 
 interface NavBarProps {
-    variant: Variant;
+    variant: EVariant;
 }
 
 export default function NavBar({ variant }: NavBarProps) {
@@ -68,22 +67,20 @@ export default function NavBar({ variant }: NavBarProps) {
         }
     }, [user]);
 
-    const navLinks = useMemo(() => {
-        return getNavLinksFromVariant(variant);
-    }, [variant]);
-
     return (
         <>
             <Navbar bg="dark" variant="dark" expand="lg" sticky="top" className={ 'px-4' }>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Brand onClick={ () => navigate('/') }>Электронный портал города Реж</Navbar.Brand>
+                <Navbar.Brand>{ getNameFromVariant(variant) }</Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav>
-                        { navLinks.map((link) => <RouterLink key={ link.name } to={ link.link } text={ link.name } />) }
-                        { renderChoosingRole }
-                        <NavDropdown menuVariant={ 'dark' } title={ <PersonCircle /> } id="basic-nav-dropdown">
-                            { renderUserLinks }
-                        </NavDropdown>
+                        <>
+                            { renderChoosingRole }
+                            { renderLinks(variant) }
+                            <NavDropdown menuVariant={ 'dark' } title={ <PersonCircle /> } id="basic-nav-dropdown">
+                                { renderUserLinks }
+                            </NavDropdown>
+                        </>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

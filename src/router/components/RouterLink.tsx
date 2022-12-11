@@ -4,16 +4,10 @@ import { NavLink, NavLinkProps } from 'react-router-dom';
 
 type RouterLinkProps = React.PropsWithChildren<{
     to: string;
-    text: string;
-    icon?: any;
+    children: any;
 }>;
 
 export const RouterLink = (props: RouterLinkProps) => {
-    let Icon;
-    if (props.icon) {
-        Icon = props.icon;
-    }
-
     type MyNavLinkProps = Omit<NavLinkProps, 'to'>;
     const MyNavLink = React.useMemo(
         () =>
@@ -36,8 +30,8 @@ export const RouterLink = (props: RouterLinkProps) => {
         [props.to],
     );
     return (
-        <Nav.Link as={ MyNavLink }>
-            { props.text }
+        <Nav.Link as={ MyNavLink } className={'d-flex flex-row gap-2 align-items-center padding-0'}>
+            { props.children }
         </Nav.Link>
     );
 };

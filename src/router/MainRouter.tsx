@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Variant } from '../layouts/consts/navbarVariant';
 import NavBar from '../layouts/NavBar';
 import Main from '../pages/Main';
 import NotFound from '../pages/NotFound';
@@ -21,6 +20,7 @@ import Deputats from '../pages/Deputats';
 import Registration from '../pages/Registration';
 import BeforeAfter from '../pages/before-after/BeforeAfter';
 import BeforeAfterItem from '../pages/before-after/BeforeAfterItem';
+import { EVariant } from '../layouts/consts';
 
 export default function MainRouter() {
     const { isLoading, isFetching } = useGetMeQuery(null, {
@@ -30,7 +30,7 @@ export default function MainRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={ <NavBar variant={ Variant.USER } /> }>
+                <Route path="/" element={ <NavBar variant={ EVariant.USER } /> }>
                     <Route index element={ <Main /> } />
                     <Route path="forbidden" element={ <Forbidden /> } />
                     <Route path="*" element={ <NotFound /> } />
@@ -55,21 +55,20 @@ export default function MainRouter() {
                     </Route>
 
                     <Route element={ <ProtectedRoute roles={ ['USER', 'DEPUTAT', 'ADMIN'] } /> }>
-                        <Route index element={ <div>я авторизован</div> } />
                         { UserRouter }
                     </Route>
                 </Route>
 
                 <Route path="/deputat" element={ <ProtectedRoute roles={ ['DEPUTAT', 'ADMIN'] } /> }>
-                    <Route element={ <NavBar variant={ Variant.DEPUTAT } /> }>
-                        <Route index element={ <div>я депутат</div> } />
+                    <Route element={ <NavBar variant={ EVariant.DEPUTAT } /> }>
+                        <Route index element={ <div>Добро пожаловать в панель депутата</div> } />
                         { DeputatRouter }
                     </Route>
                 </Route>
 
                 <Route path="/admin" element={ <ProtectedRoute roles={ ['ADMIN'] } /> }>
-                    <Route element={ <NavBar variant={ Variant.ADMIN } /> }>
-                        <Route index element={ <div>я админ</div> } />
+                    <Route element={ <NavBar variant={ EVariant.ADMIN } /> }>
+                        <Route index element={ <div>Добро пожаловать в панель администратора</div> } />
                         { AdminRouter }
                     </Route>
                 </Route>
