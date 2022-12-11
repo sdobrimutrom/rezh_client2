@@ -1,12 +1,16 @@
-import { Variant } from './navbarVariant';
+export enum EVariant {
+    ADMIN = 'admin',
+    USER = 'user',
+    DEPUTAT = 'deputat'
+}
 
-export const getNameFromVariant = (variant: Variant): string => {
+export const getNameFromVariant = (variant: EVariant): string => {
     switch (variant) {
-        case Variant.ADMIN:
+        case EVariant.ADMIN:
             return 'Админ-панель';
-        case Variant.USER:
+        case EVariant.USER:
             return 'Электронный портал города Реж';
-        case Variant.DEPUTAT:
+        case EVariant.DEPUTAT:
             return 'Панель депутата';
         default:
             return 'Электронный портал города Реж';
