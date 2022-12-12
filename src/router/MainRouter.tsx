@@ -47,8 +47,6 @@ export default function MainRouter() {
                     </Route>
 
                     <Route path="requests">
-                        <Route index element={ <Requests /> } />
-                        <Route path=":id" element={ <Request /> } />
                         <Route path="create" element={ <CreateRequest /> } />
                         <Route path="frequency" element={ <Frequency /> } />
                         <Route path="search" element={ <SearchRequest /> } />

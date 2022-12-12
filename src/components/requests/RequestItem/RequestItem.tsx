@@ -10,21 +10,28 @@ import RequestItemModerate from './RequestItemModerate';
 import RequestItemAnswer from './RequestItemAnswer';
 import { getDateString } from '../../../helpers/date.helper';
 import AccordionItem from 'react-bootstrap/AccordionItem';
+import RequestItemEdit from './RequestItemEdit';
 
 interface NewsItemProps {
     request: IRequest;
     withModeratingUI?: boolean;
     withAnsweringUI?: boolean;
+    withEditingUI?: boolean;
 }
 
 const renderFieldWithLabel = (label: string, value: string) => {
     return <Card.Text>
-        <b>{ `${label}: ` }</b>
+        <b>{ `${ label }: ` }</b>
         <span>{ value }</span>
-    </Card.Text>
-}
+    </Card.Text>;
+};
 
-export default function RequestItem({ request, withModeratingUI = false, withAnsweringUI = false }: NewsItemProps) {
+export default function RequestItem({
+        request,
+        withModeratingUI = false,
+        withAnsweringUI = false,
+        withEditingUI = false,
+    }: NewsItemProps) {
     return (
         <Card className={ 'p-0' }>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>
@@ -40,7 +47,7 @@ export default function RequestItem({ request, withModeratingUI = false, withAns
                   <Card.Title>
                       { renderFieldWithLabel('Адресат', `${ request?.deputat.second_name } ${ request?.deputat.first_name } ${ request?.deputat.father_name }`) }
                   </Card.Title> }
-                <Card.Text className={'fs-5 fw-semibold'}>{ request?.title }</Card.Text>
+                <Card.Text className={ 'fs-5 fw-semibold' }>{ request?.title }</Card.Text>
                 <Card.Text>{ request?.text }</Card.Text>
             </Card.Body>
             <Accordion flush alwaysOpen>
@@ -99,6 +106,7 @@ export default function RequestItem({ request, withModeratingUI = false, withAns
             </Accordion>
             { withModeratingUI && request?.id && <RequestItemModerate id={ request?.id } /> }
             { withAnsweringUI && request?.id && <RequestItemAnswer id={ request?.id } /> }
+            { withEditingUI && request?.id && <RequestItemEdit id={ request?.id } request={ request }/> }
         </Card>
     );
 }

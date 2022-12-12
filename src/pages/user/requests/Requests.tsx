@@ -58,7 +58,7 @@ export default function Requests() {
                 <Row>{ (requestsMeta.isLoading || requestsMeta.isFetching) && <Spinner /> }</Row>
                 <Row className={ 'd-flex flex-column gap-3 container' }>
                     { requests?.rows?.map((request) => {
-                        return <RequestItem key={ request.id } request={ request } />;
+                        return <RequestItem key={ request.id } request={ request } withEditingUI />;
                     }) }
                     { !requests?.rows?.length && <h5>Ничего не найдено</h5> }
                 </Row>
