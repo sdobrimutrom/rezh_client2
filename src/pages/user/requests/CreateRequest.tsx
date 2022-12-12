@@ -10,6 +10,9 @@ import { Button, Form } from 'react-bootstrap';
 import FileUpload from '../../../components/common/FileUpload/FileUpload';
 import DeputatSelect from '../../../components/DeputatSelect';
 import { yupResolver } from '@hookform/resolvers/yup';
+import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
+import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
+import Row from 'react-bootstrap/Row';
 
 const validationSchema = yup.object({
     title: yup.string().required('Необходимое поле'),
@@ -57,122 +60,129 @@ export default function CreateRequest() {
             });
     };
 
-    return <Container>
+    return <Container className={ 'd-flex flex-column gap-3' }>
+        <BreadcrumbGroup>
+            <BreadcrumbItem to={ '/' } label={ 'Главная' } />
+            <BreadcrumbItem to={ '/requests/create' } label={ 'Новое обращение' } isActive={ true } />
+        </BreadcrumbGroup>
         <h3>Создать обращение</h3>
-        <FormProvider { ...form }>
-            <Form onSubmit={ form.handleSubmit(onSubmit) }
-                  className={ 'd-flex flex-column gap-4 ' }>
-                <Form.Group controlId="formTitle">
-                    <Form.Label>Заголовок обращения</Form.Label>
-                    <Controller control={ form.control } name="title"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.title }
-                                                  placeholder="Введите заголовок обращения" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.title?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formText">
-                    <Form.Label>Введите текст обращения</Form.Label>
-                    <Controller control={ form.control } name="text"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control as={ 'textarea' } onChange={ onChange } value={ value }
-                                                  ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.text }
-                                                  placeholder="Введите текст обращения" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.text?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Прикрепить файлы к обращению</Form.Label>
-                    <FileUpload limit={ 8 } multiple={ true } name={ 'files' } />
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Выберите депутата, которому хотите адресовать обращение</Form.Label>
-                    <DeputatSelect name={'deputat_id'} />
-                </Form.Group>
-                <hr />
-                <h5>Информация о пользователе (необ.)</h5>
-                <Form.Group controlId="formEmail">
-                    <Form.Label>Электронная почта</Form.Label>
-                    <Controller control={ form.control } name="email"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.email }
-                                                  placeholder="Введите электронную почту" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.email?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formFirstName">
-                    <Form.Label>Имя</Form.Label>
-                    <Controller control={ form.control } name="first_name"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.first_name }
-                                                  placeholder="Введите свое имя" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.first_name?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formSecondName">
-                    <Form.Label>Фамилия</Form.Label>
-                    <Controller control={ form.control } name="second_name"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.second_name }
-                                                  placeholder="Введите свою фамилию" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.second_name?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formFather_name">
-                    <Form.Label>Отчество</Form.Label>
-                    <Controller control={ form.control } name="father_name"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.father_name }
-                                                  placeholder="Введите свое отчество" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.father_name?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formPhone_number">
-                    <Form.Label>Номер телефона</Form.Label>
-                    <Controller control={ form.control } name="phone_number"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.phone_number }
-                                                  placeholder="Введите номер телефона" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.phone_number?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="formOrganization_name">
-                    <Form.Label>Название организации (если обращение от юридического лица)</Form.Label>
-                    <Controller control={ form.control } name="organization_name"
-                                defaultValue=""
-                                render={ ({ field: { onChange, value, ref } }) => (
-                                    <Form.Control onChange={ onChange } value={ value } ref={ ref }
-                                                  isInvalid={ !!form.formState.errors.organization_name }
-                                                  placeholder="Введите название организации" />) } />
-                    <Form.Control.Feedback type="invalid">
-                        { form.formState.errors.organization_name?.message }
-                    </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group>
-                    <Button disabled={ isLoading } type={ 'submit' } variant={ 'dark' }>Создать</Button>
-                </Form.Group>
-            </Form>
-        </FormProvider>
+        <hr />
+        <Row>
+            <FormProvider { ...form }>
+                <Form onSubmit={ form.handleSubmit(onSubmit) }
+                      className={ 'd-flex flex-column gap-4 ' }>
+                    <Form.Group controlId="formTitle">
+                        <Form.Label>Заголовок обращения</Form.Label>
+                        <Controller control={ form.control } name="title"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.title }
+                                                      placeholder="Введите заголовок обращения" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.title?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formText">
+                        <Form.Label>Введите текст обращения</Form.Label>
+                        <Controller control={ form.control } name="text"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control as={ 'textarea' } onChange={ onChange } value={ value }
+                                                      ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.text }
+                                                      placeholder="Введите текст обращения" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.text?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Прикрепить файлы к обращению</Form.Label>
+                        <FileUpload limit={ 8 } multiple={ true } name={ 'files' } />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Выберите депутата, которому хотите адресовать обращение</Form.Label>
+                        <DeputatSelect name={ 'deputat_id' } />
+                    </Form.Group>
+                    <hr />
+                    <h5>Информация о пользователе (необ.)</h5>
+                    <Form.Group controlId="formEmail">
+                        <Form.Label>Электронная почта</Form.Label>
+                        <Controller control={ form.control } name="email"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.email }
+                                                      placeholder="Введите электронную почту" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.email?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formFirstName">
+                        <Form.Label>Имя</Form.Label>
+                        <Controller control={ form.control } name="first_name"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.first_name }
+                                                      placeholder="Введите свое имя" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.first_name?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formSecondName">
+                        <Form.Label>Фамилия</Form.Label>
+                        <Controller control={ form.control } name="second_name"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.second_name }
+                                                      placeholder="Введите свою фамилию" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.second_name?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formFather_name">
+                        <Form.Label>Отчество</Form.Label>
+                        <Controller control={ form.control } name="father_name"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.father_name }
+                                                      placeholder="Введите свое отчество" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.father_name?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formPhone_number">
+                        <Form.Label>Номер телефона</Form.Label>
+                        <Controller control={ form.control } name="phone_number"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.phone_number }
+                                                      placeholder="Введите номер телефона" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.phone_number?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group controlId="formOrganization_name">
+                        <Form.Label>Название организации (если обращение от юридического лица)</Form.Label>
+                        <Controller control={ form.control } name="organization_name"
+                                    defaultValue=""
+                                    render={ ({ field: { onChange, value, ref } }) => (
+                                        <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                                      isInvalid={ !!form.formState.errors.organization_name }
+                                                      placeholder="Введите название организации" />) } />
+                        <Form.Control.Feedback type="invalid">
+                            { form.formState.errors.organization_name?.message }
+                        </Form.Control.Feedback>
+                    </Form.Group>
+                    <Form.Group>
+                        <Button disabled={ isLoading } type={ 'submit' } variant={ 'dark' }>Создать</Button>
+                    </Form.Group>
+                </Form>
+            </FormProvider>
+        </Row>
     </Container>;
 }

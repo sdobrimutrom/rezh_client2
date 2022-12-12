@@ -2,16 +2,20 @@ import { iNotification } from 'react-notifications-component';
 
 export const PAGE_LIMIT = 5;
 
-export const moderatingText = (approved: boolean | undefined, moderated: boolean | undefined): JSX.Element => {
+export const moderatingText = (approved: boolean | undefined, moderated: boolean | undefined, answered: boolean): JSX.Element => {
     if (approved === undefined || moderated === undefined) {
         return <span className={ 'text-warning' }>В обработке</span>;
     }
 
-    return moderated
-        ? approved
-            ? <span className={ 'text-success' }>Принято</span>
-            : <span className={ 'text-danger' }>Отклонено</span>
-        : <span className={ 'text-warning' }>В обработке</span>;
+    return (
+        moderated
+            ? approved
+                ? answered
+                    ? <span className={ 'text-success' }>Отвечено</span>
+                    : <span className={ 'text-success' }>Принято</span>
+                : <span className={ 'text-danger' }>Отклонено</span>
+            : <span className={ 'text-warning' }>В обработке</span>
+    );
 };
 
 export const ErrorNotification = (message: string): iNotification =>

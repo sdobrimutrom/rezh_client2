@@ -17,20 +17,30 @@ interface NewsItemProps {
     withAnsweringUI?: boolean;
 }
 
+const renderFieldWithLabel = (label: string, value: string) => {
+    return <Card.Text>
+        <b>{ `${label}: ` }</b>
+        <span>{ value }</span>
+    </Card.Text>
+}
+
 export default function RequestItem({ request, withModeratingUI = false, withAnsweringUI = false }: NewsItemProps) {
     return (
         <Card className={ 'p-0' }>
             <Card.Header className={ 'd-flex flex-row justify-content-between' }>
                 <Card.Text>Дата обращения: { getDateString(request?.updatedAt) }</Card.Text>
                 <Card.Text>
-                    { 'Статус:' } { moderatingText(request?.approved, request?.moderated) }
+                    { 'Статус:' } { moderatingText(request?.approved, request?.moderated, !!request?.answer) }
                     { request?.moderating_text &&
                       <div className={ 'text-wrap' }>{ `Причина: ${ request?.moderating_text }` }</div> }
                 </Card.Text>
             </Card.Header>
             <Card.Body>
-                <Card.Title>Обращение{ request?.deputat_id && ` к ${ request?.deputat_id }` }</Card.Title>
-                <Card.Subtitle>{ request?.title }</Card.Subtitle>
+                { request?.deputat_id &&
+                  <Card.Title>
+                      { renderFieldWithLabel('Адресат', `${ request?.deputat.second_name } ${ request?.deputat.first_name } ${ request?.deputat.father_name }`) }
+                  </Card.Title> }
+                <Card.Text className={'fs-5 fw-semibold'}>{ request?.title }</Card.Text>
                 <Card.Text>{ request?.text }</Card.Text>
             </Card.Body>
             <Accordion flush alwaysOpen>
@@ -50,31 +60,27 @@ export default function RequestItem({ request, withModeratingUI = false, withAns
                     && <AccordionItem eventKey={ '2' }>
                     <AccordionHeader>Данные пользователя</AccordionHeader>
                     <AccordionBody>
-                        { request?.email && <Card.Text>{ `Электронная почта: ${ request?.email }` }</Card.Text> }
+                        { request?.email && renderFieldWithLabel('Электронная почта', request.email) }
                         { (request?.first_name || request?.second_name || request?.father_name)
-                            && <Card.Text>
-                                { `ФИО: ${ request?.first_name } ${ request?.second_name } ${ request?.father_name }` }
-                          </Card.Text> }
-                        { request?.phone_number &&
-                          <Card.Text>{ `Номер телефона: ${ request?.phone_number }` }</Card.Text> }
-                        { request?.organization_name &&
-                          <Card.Text>{ `Название организации: ${ request?.organization_name }` }</Card.Text> }
+                            && renderFieldWithLabel('ФИО', `${ request?.first_name } ${ request?.second_name } ${ request?.father_name }`) }
+                        { request?.phone_number && renderFieldWithLabel('Номер телефона', request.phone_number) }
+                        { request?.organization_name && renderFieldWithLabel('Название организации', request.organization_name) }
                     </AccordionBody>
                   </AccordionItem> }
                 { request?.answer &&
                   <AccordionItem eventKey={ '3' }>
                     <AccordionHeader>Ответ на обращение</AccordionHeader>
                     <AccordionBody>
-                      <Card.Text>Дата ответа: { getDateString(request?.answer?.updatedAt) }</Card.Text>
+                        { request?.answer?.updatedAt && renderFieldWithLabel('Дата ответа', getDateString(request.answer.updatedAt)) }
                         { (request?.answer?.user?.first_name || request?.answer?.user?.second_name ||
                                 request?.answer?.user?.father_name || request?.answer?.user?.email) &&
-                          <Card.Subtitle>
-                              { `Ответил: ` +
+                          <Card.Title>
+                              { renderFieldWithLabel('Ответил',
                                   `${ request?.answer?.user?.second_name || '' } ` +
                                   `${ request?.answer?.user?.first_name || '' } ` +
                                   `${ request?.answer?.user?.father_name || '' } ` +
-                                  `Email: ${ request?.answer?.user?.email || '' }` }
-                          </Card.Subtitle> }
+                                  `Email: ${ request?.answer?.user?.email || '' }`) }
+                          </Card.Title> }
                       <Card.Text>{ request?.answer.text }</Card.Text>
                         { !!request.answer?.files?.length && <Accordion>
                           <AccordionItem eventKey={ '4' }>
