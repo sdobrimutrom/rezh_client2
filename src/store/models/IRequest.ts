@@ -40,7 +40,7 @@ export interface IRequestsQueryParams {
 export interface IRequestsQuery {
     search?: string;
     user_id?: number;
-    deputat_id?: number;
+    deputat_id?: number | null;
     frequent?: boolean;
     moderated?: boolean;
     approved?: boolean;
