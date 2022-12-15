@@ -1,6 +1,6 @@
 export const getDateString = (date?: Date) => {
     if (!date) {
-        return undefined;
+        return '';
     }
 
     const options = {

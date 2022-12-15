@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { FormCheck, FormControl, FormGroup, FormLabel, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
@@ -5,14 +6,13 @@ import React, { ChangeEvent, useMemo, useState } from 'react';
 import { IRequestsQuery } from '../../store/models/IRequest';
 import Select from 'react-select/base';
 import { useGetDeputatsQuery } from '../../store/api/users.api';
-import { SingleValue } from 'react-select';
 import { ERole } from '../../types/ERole';
 import { useAppSelector } from '../../hooks/redux';
 
 interface RequestsFiltersProps {
     filters: IRequestsQuery;
     setFilters: (filters: IRequestsQuery) => void;
-    role: ERole;
+    role?: ERole;
 }
 
 export default function RequestsFilters({ filters, setFilters, role }: RequestsFiltersProps) {
@@ -89,20 +89,6 @@ export default function RequestsFilters({ filters, setFilters, role }: RequestsF
                   />
                   <FormLabel>Адресованные мне</FormLabel>
                 </FormGroup> }
-                { (role === ERole.ADMIN || role === ERole.USER) && <FormGroup>
-                  <FormLabel>Депутат</FormLabel>
-                  <Select isDisabled={ isLoading }
-                          isLoading={ isLoading }
-                          options={ selectOptions }
-                          onChange={ (newValue) => handleSelectChange(newValue?.value) }
-                          value={ selectOptions?.find(o => o.value === filters['deputat_id']) }
-                          placeholder={ isLoading ? 'Загрузка...' : 'Выберите депутата' }
-                          menuIsOpen={ selectMenuIsOpen }
-                          onMenuOpen={ handleSelectMenuIsOpenChange(true) }
-                          onMenuClose={ handleSelectMenuIsOpenChange(false) }
-                          inputValue={ deputatSelectInputValue }
-                          onInputChange={ handleDeputatSelectInputChange } />
-                </FormGroup> }
                 { role === ERole.ADMIN && <FormGroup>
                   <ToggleButtonGroup id={ 'moderated' } className={ 'd-block' } name={ 'moderated' } type={ 'radio' }
                                      value={ String(filters['moderated']) }
@@ -127,7 +113,7 @@ export default function RequestsFilters({ filters, setFilters, role }: RequestsF
                                   value={ 'false' }>Неподтвержденные</ToggleButton>
                   </ToggleButtonGroup>
                 </FormGroup> }
-                <FormGroup>
+                { (role === ERole.ADMIN || role === ERole.DEPUTAT) && <FormGroup>
                     <ToggleButtonGroup id={ 'frequent' } className={ 'd-block' } name={ 'frequent' } type={ 'radio' }
                                        value={ String(filters['frequent']) }
                                        onChange={ handleSwitchChange('frequent') }>
@@ -138,17 +124,33 @@ export default function RequestsFilters({ filters, setFilters, role }: RequestsF
                         <ToggleButton variant={ 'outline-dark' } id={ 'frequent-false' } value={ 'false' }>Не часто
                             задаваемые</ToggleButton>
                     </ToggleButtonGroup>
-                </FormGroup>
-                <FormGroup>
+                </FormGroup> }
+                { (role === ERole.ADMIN || role === ERole.USER || role === ERole.DEPUTAT) && <FormGroup>
                     <ToggleButtonGroup id={ 'answered' } className={ 'd-block' } name={ 'answered' } type={ 'radio' }
                                        value={ String(filters['answered']) }
                                        onChange={ handleSwitchChange('answered') }>
                         <ToggleButton variant={ 'outline-dark' } id={ 'answered-all' } value={ 'undefined' }>Показать
                             все</ToggleButton>
-                        <ToggleButton variant={ 'outline-dark' } id={ 'answered-true' } value={ 'true' }>С ответом</ToggleButton>
-                        <ToggleButton variant={ 'outline-dark' } id={ 'answered-false' } value={ 'false' }>Без ответа</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'answered-true' } value={ 'true' }>С
+                            ответом</ToggleButton>
+                        <ToggleButton variant={ 'outline-dark' } id={ 'answered-false' } value={ 'false' }>Без
+                            ответа</ToggleButton>
                     </ToggleButtonGroup>
-                </FormGroup>
+                </FormGroup> }
+                { (role === ERole.ADMIN || role === ERole.USER) && <FormGroup>
+                  <FormLabel>Депутат</FormLabel>
+                  <Select isDisabled={ isLoading }
+                          isLoading={ isLoading }
+                          options={ selectOptions }
+                          onChange={ (newValue) => handleSelectChange(newValue?.value) }
+                          value={ selectOptions?.find(o => o.value === filters['deputat_id']) }
+                          placeholder={ isLoading ? 'Загрузка...' : 'Выберите депутата' }
+                          menuIsOpen={ selectMenuIsOpen }
+                          onMenuOpen={ handleSelectMenuIsOpenChange(true) }
+                          onMenuClose={ handleSelectMenuIsOpenChange(false) }
+                          inputValue={ deputatSelectInputValue }
+                          onInputChange={ handleDeputatSelectInputChange } />
+                </FormGroup> }
             </Row>
         </Container>
     );

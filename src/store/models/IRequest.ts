@@ -1,4 +1,5 @@
 import { IAnswer } from './IAnswer';
+import { IUser } from './IUser';
 
 export interface IRequest {
     id: number;
@@ -14,6 +15,7 @@ export interface IRequest {
     phone_number: string;
     organization_name: string;
     deputat_id: number;
+    deputat: IUser;
     moderated: boolean;
     approved: boolean;
     moderating_text: string;
@@ -40,7 +42,7 @@ export interface IRequestsQueryParams {
 export interface IRequestsQuery {
     search?: string;
     user_id?: number;
-    deputat_id?: number;
+    deputat_id?: number | null;
     frequent?: boolean;
     moderated?: boolean;
     approved?: boolean;

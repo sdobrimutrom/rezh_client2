@@ -18,8 +18,8 @@ import { useGetMeQuery } from '../store/api/auth.api';
 import SearchRequest from '../pages/user/requests/SearchRequest';
 import Deputats from '../pages/Deputats';
 import Registration from '../pages/Registration';
-import BeforeAfter from '../pages/before-after/BeforeAfter';
-import BeforeAfterItem from '../pages/before-after/BeforeAfterItem';
+import BeforeAfter from '../pages/user/before-after/BeforeAfter';
+import BeforeAfterItem from '../pages/user/before-after/BeforeAfterItem';
 import { EVariant } from '../layouts/consts';
 
 export default function MainRouter() {
@@ -47,8 +47,6 @@ export default function MainRouter() {
                     </Route>
 
                     <Route path="requests">
-                        <Route index element={ <Requests /> } />
-                        <Route path=":id" element={ <Request /> } />
                         <Route path="create" element={ <CreateRequest /> } />
                         <Route path="frequency" element={ <Frequency /> } />
                         <Route path="search" element={ <SearchRequest /> } />

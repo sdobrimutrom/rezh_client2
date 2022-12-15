@@ -1,4 +1,4 @@
-import { Row } from 'react-bootstrap';
+import { Row, Spinner } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import RequestItem from '../../../components/requests/RequestItem/RequestItem';
 import Pagination, { OnChangeEventType } from '../../../components/common/Pagination';
@@ -45,14 +45,17 @@ export default function Requests() {
                 <Row>
                     <RequestsFilters filters={ filters } setFilters={ setFilters } role={ ERole.DEPUTAT } />
                 </Row>
+                <Row>{ (requestsMeta.isLoading || requestsMeta.isFetching) && <Spinner /> }</Row>
                 <Row className={ 'd-flex flex-column gap-3 container' }>
                     { requests?.rows?.map((request) => {
                         return <RequestItem key={ request.id } request={ request } withAnsweringUI={ true } />;
                     }) }
+                    { !requests?.rows?.length && <h5>Ничего не найдено</h5> }
                 </Row>
                 <Row>
-                    <Pagination onChange={ handleChangePage } aroundCurrent={ 1 }
-                                totalPages={ getTotalPages(requests?.count) } value={ page } />
+                    { !!requests?.rows?.length &&
+                      <Pagination onChange={ handleChangePage } aroundCurrent={ 1 }
+                                  totalPages={ getTotalPages(requests?.count) } value={ page } /> }
                 </Row>
             </Row>
         </Container>
