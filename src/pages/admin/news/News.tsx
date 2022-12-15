@@ -13,6 +13,8 @@ import Pagination, { OnChangeEventType } from '../../../components/common/Pagina
 import NewsItem from '../../../components/news/NewsItem';
 import NewsFilters from '../../../components/news/NewsFilters';
 import { INewsQuery } from '../../../store/models/INews';
+import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
+import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
 
 export default function News() {
     const navigate = useNavigate();
@@ -38,6 +40,12 @@ export default function News() {
 
     return (
         <Container className={ 'py-3 d-flex flex-column gap-3' }>
+            <Row>
+                <BreadcrumbGroup>
+                    <BreadcrumbItem to={ '/admin' } label={ 'Главная' } />
+                    <BreadcrumbItem to={ '/admin/news' } label={ 'Новости' } isActive={ true } />
+                </BreadcrumbGroup>
+            </Row>
             <Row className={ 'justify-content-between' }>
                 <Col>
                     <h3>Новости</h3>
@@ -68,31 +76,5 @@ export default function News() {
                 </Row>
             </Row>
         </Container>
-        // <Container>
-        //     <Grid container direction="column" gap={2}>
-        //         <Grid container direction="row" justifyContent="space-between">
-        //             <Typography variant="h4" fontWeight={700}>
-        //                 Новости
-        //             </Typography>
-        //             <Button onClick={() => navigate('create')}>
-        //                 <Add />
-        //             </Button>
-        //         </Grid>
-        //         <Divider light flexItem variant="middle" />
-        //         <Grid container gap={3}>
-        //             <Grid container>
-        //                 <Filters filters={filters} setFilters={setFilters} />
-        //             </Grid>
-        //             <Grid container direction="column" gap={2}>
-        //                 {data?.rows?.map((news) => {
-        //                     return <div key={news.id}>{news.title}</div>;
-        //                 })}
-        //             </Grid>
-        //         </Grid>
-        //         <Grid item>
-        //             <Pagination count={getTotalPages(data?.count)} page={page} onChange={handleChangePage} />
-        //         </Grid>
-        //     </Grid>
-        // </Container>
     );
 }

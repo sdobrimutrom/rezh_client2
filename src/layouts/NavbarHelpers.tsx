@@ -41,13 +41,14 @@ const renderUserLinks = () => {
             <NavDropdown.Item onClick={() => navigate('/requests/search')}>
                 Поиск по номеру
             </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => navigate('/deputats')}>
+                Список депутатов
+            </NavDropdown.Item>
         </NavDropdown>
     </>
 }
 
 const renderDeputatLinks = () => {
-    const navigate = useNavigate();
-
     return <>
         <RouterLink to={'/deputat'}>
             <div>{ 'Главная' }</div>
@@ -62,8 +63,6 @@ const renderDeputatLinks = () => {
 }
 
 const renderAdminLinks = () => {
-    const navigate = useNavigate();
-
     return <>
         <RouterLink to={'/admin'}>
             <div>{ 'Главная' }</div>

@@ -7,7 +7,7 @@ interface ProtectedRouteProps {
     roles: string[];
 }
 
-export default function ProtectedRoute({ redirectPath = '/unforbidden', roles }: ProtectedRouteProps) {
+export default function ProtectedRoute({ redirectPath = '/forbidden', roles }: ProtectedRouteProps) {
     const token = localStorage.getItem('access_token');
     if (!token) {
         return <Navigate to={redirectPath} />;

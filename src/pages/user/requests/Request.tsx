@@ -66,7 +66,7 @@ export default function Request() {
                     label: `${ request?.deputat?.second_name } ${ request?.deputat?.first_name } ${ request?.deputat?.father_name }`
                 },
             };
-        }, [request?.answer?.text, request?.frequent]),
+        }, [request]),
         resolver: yupResolver(validationSchema),
     });
 
@@ -86,7 +86,7 @@ export default function Request() {
                 label: `${ request?.deputat?.second_name } ${ request?.deputat?.first_name } ${ request?.deputat?.father_name }`
             },
         });
-    }, [request?.answer?.text, request?.frequent]);
+    }, [request]);
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         const formData = toFormData(Object.entries(data));

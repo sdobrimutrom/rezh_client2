@@ -9,7 +9,7 @@ interface AuthResponse extends IStatus {
 
 export const authApi = commonApi.injectEndpoints({
     endpoints: (builder) => ({
-        registration: builder.mutation<AuthResponse, IRegistrationInput>({
+        registration: builder.mutation<AuthResponse, FormData>({
             query: (data) => ({
                 url: 'auth/registration',
                 method: 'POST',
@@ -53,6 +53,7 @@ export const authApi = commonApi.injectEndpoints({
                     console.log(e);
                 }
             },
+            providesTags: ['User'],
         }),
     }),
 });

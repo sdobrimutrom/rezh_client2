@@ -8,6 +8,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, Container, Form } from 'react-bootstrap';
 import FileUpload from '../../../components/common/FileUpload/FileUpload';
 import { toFormData } from '../../../helpers/form-data.helper';
+import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
+import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
+import React from 'react';
 
 const validationSchema = yup.object({
     title: yup.string().required('Необходимое поле'),
@@ -22,7 +25,7 @@ type FormValues = {
 }
 
 export default function AddNews() {
-    const [addNews, { isLoading, error }] = useAddNewsMutation();
+    const [addNews, { isLoading }] = useAddNewsMutation();
 
     const form = useForm<FormValues>({
         resolver: yupResolver(validationSchema),
@@ -30,7 +33,6 @@ export default function AddNews() {
 
     const onSubmit: SubmitHandler<FormValues> = (data) => {
         const formData = toFormData(Object.entries(data));
-        console.log(formData);
         addNews(formData)
             .unwrap()
             .then(() => {
@@ -43,10 +45,15 @@ export default function AddNews() {
 
     return (
         <Container className={ 'py-3 d-flex flex-column gap-3' }>
+            <BreadcrumbGroup>
+                <BreadcrumbItem to={ '/admin' } label={ 'Главная' } />
+                <BreadcrumbItem to={ '/admin/news' } label={ 'Новости' } />
+                <BreadcrumbItem to={ '/admin/news/create' } label={ 'Добавить новость' } isActive={ true } />
+            </BreadcrumbGroup>
             <h2>Создать новость</h2>
             <FormProvider { ...form }>
                 <Form onSubmit={ form.handleSubmit(onSubmit) }
-                      className={ 'd-flex flex-column align-items-start gap-4 ' }>
+                      className={ 'd-flex flex-column gap-4 ' }>
                     <Form.Group controlId="formTitle">
                         <Form.Label>Заголовок новости</Form.Label>
                         <Controller control={ form.control } name="title"
@@ -72,7 +79,7 @@ export default function AddNews() {
                             { form.formState.errors.content?.message }
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group controlId="formImage">
                         <Form.Label>Прикрепить изображение</Form.Label>
                         <FileUpload limit={ 1 } multiple={ false } name={ 'image' } />
                     </Form.Group>

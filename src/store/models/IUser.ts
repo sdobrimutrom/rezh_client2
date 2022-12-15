@@ -7,7 +7,10 @@ export interface IUser {
     first_name: string;
     second_name: string;
     father_name: string;
+    phone_number: string;
+    organization_name: string;
     avatar: string;
+    description: string;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -35,6 +38,8 @@ export interface IRegistrationInput {
     second_name: string;
     father_name: string;
     avatar: string;
+    phone_number: string;
+    description: string;
 }
 
 export interface ILoginInput {

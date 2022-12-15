@@ -12,10 +12,19 @@ export const usersApi = commonApi.injectEndpoints({
                     page,
                 },
             }),
-        })
+        }),
+        editProfile: builder.mutation<IUser, FormData>({
+            query: (user) => ({
+                url: `users/me`,
+                method: 'PATCH',
+                body: user,
+            }),
+            invalidatesTags: ['User'],
+        }),
     })
 })
 
 export const {
-    useGetDeputatsQuery
+    useGetDeputatsQuery,
+    useEditProfileMutation,
 } = usersApi;

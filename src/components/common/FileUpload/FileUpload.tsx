@@ -1,13 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { Controller, useController, useFormContext } from 'react-hook-form';
-import { Trash, X } from 'react-bootstrap-icons';
+import { FileArrowUp, FiletypeM4p, Trash, X } from 'react-bootstrap-icons';
 import uploadImage from './assets/file_upload.png';
 
 interface IFileUploadProps {
     limit: number;
     multiple: boolean;
     name: string;
+    width?: number;
+    height?: number;
 }
 
 const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
@@ -55,10 +57,12 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
         const updatedList = [...fileList];
         updatedList.splice(fileList.indexOf(file), 1);
         setFileList(updatedList);
+        field.onChange(updatedList);
     };
 
     const fileSingleRemove = () => {
         setSingleFile([]);
+        field.onChange(undefined);
     };
 
     const calcSize = (size: number) => {
@@ -74,6 +78,8 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
         }
     }, [isSubmitting]);
 
+    const isFileSelected = fileList.length > 0 || singleFile.length > 0;
+
     return (
         <>
             <div>
@@ -85,17 +91,14 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
                         height: '13rem',
                         border: '2px dashed #4267b2',
                         borderRadius: '20px',
-                        backgroundColor: '#eeeeee',
+                        backgroundColor: '#f5f8ff',
                     } }
                     ref={ wrapperRef }
                     onDragEnter={ onDragEnter }
                     onDragLeave={ onDragLeave }
                     onDrop={ onDragLeave }
                 >
-                    <div className="d-flex flex-column text-center justify-content-center p-1">
-                        <div style={ { color: '#ccc' } }>
-                            { limit > 1 ? 'Browse files to upload' : 'Browse file to upload' }
-                        </div>
+                    <div className="d-flex flex-column text-center justify-content-center gap-1 p-1">
                         <div>
                             <img
                                 src={uploadImage}
@@ -103,12 +106,9 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
                                 style={ { width: '5rem' } }
                             />
                         </div>
-                        <span>
-                            <strong>Supported Files</strong>
-                        </span>
-                        <span>
-                            JPG, JPEG, PNG
-                        </span>
+                        <h5>
+                            { limit > 1 ? 'Выберите файлы для загрузки' : 'Выберите файл для загрузки' }
+                        </h5>
                     </div>
                     <Controller
                         name={ name }
@@ -122,7 +122,6 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
                                 ref={ ref }
                                 onChange={ onFileDrop }
                                 multiple={ multiple }
-                                accept="image/jpg, image/png, image/jpeg"
                                 style={ {
                                     opacity: 0,
                                     position: 'absolute',
@@ -138,14 +137,13 @@ const FileUpload: React.FC<IFileUploadProps> = ({ limit, multiple, name }) => {
                 </div>
             </div>
 
-            <Form.Control.Feedback type="invalid"
-                                   style={ { textAlign: 'center', margin: 1 } }
+            <Form.Control.Feedback type="invalid" style={ { textAlign: 'center', margin: 1 } }
             >
                 { errors?.[name]?.message?.toString() }
             </Form.Control.Feedback>
 
             {/* ?Image Preview ? */ }
-            { fileList.length > 0 || singleFile.length > 0 ? (
+            { isFileSelected ? (
                 <div className={ 'd-flex flex-column gap-2 my-2' }>
                     { (multiple ? fileList : singleFile).map((item, index) => {
                         return (

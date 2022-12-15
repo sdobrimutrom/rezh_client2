@@ -30,7 +30,7 @@ export default function Requests() {
     return (
         <Container className={ 'd-flex flex-column gap-3' }>
             <BreadcrumbGroup>
-                <BreadcrumbItem to={ '/' } label={ 'Главная' } />
+                <BreadcrumbItem to={ '/admin' } label={ 'Главная' } />
                 <BreadcrumbItem to={ '/admin/requests' } label={ 'Обращения' } isActive={ true } />
             </BreadcrumbGroup>
             <Row className={ 'justify-content-between' }>
