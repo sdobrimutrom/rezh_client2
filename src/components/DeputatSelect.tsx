@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import Select from 'react-select/base';
 import { useGetDeputatsQuery } from '../store/api/users.api';
+import { useSearchParams } from 'react-router-dom';
 
 interface IDeputatSelectProps {
     name: string;
@@ -12,6 +13,8 @@ export default function DeputatSelect({ name }: IDeputatSelectProps) {
     const handleInputChange = (newValue: string) => {
         setInputValue(newValue);
     };
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
     const handleMenuIsOpenChange = (value: boolean) => () => {
@@ -33,6 +36,17 @@ export default function DeputatSelect({ name }: IDeputatSelectProps) {
         control,
         formState: { isSubmitting, errors },
     } = useFormContext();
+
+    useEffect(() => {
+        console.log(selectOptions
+            ?.find(option => option.value === Number(searchParams.get('deputat_id')))
+            ?.label || '');
+        handleInputChange(
+            selectOptions
+                ?.find(option => option.value === Number(searchParams.get('deputat_id')))
+                ?.label || ''
+        )
+    }, [searchParams])
 
     return (
         <Controller

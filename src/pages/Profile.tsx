@@ -14,7 +14,7 @@ import { Controller, FormProvider, SubmitHandler, useForm } from 'react-hook-for
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { Store } from 'react-notifications-component';
-import { ErrorNotification, SuccessNotification } from '../helpers/consts';
+import { ErrorNotification } from '../helpers/consts';
 import { toFormData } from '../helpers/form-data.helper';
 import Form from 'react-bootstrap/Form';
 import FileUpload from '../components/common/FileUpload/FileUpload';
@@ -205,7 +205,7 @@ const Profile = () => {
                                                                       isInvalid={ !!form.formState.errors.description } />
                                                     ) } />
                                         :
-                                        <div className={ 'pt-2' }>
+                                        <div className={ 'pt-2' } style={ { whiteSpace: 'pre-wrap' } }>
                                             { user?.description || 'Не указано' }
                                         </div>
                                     }

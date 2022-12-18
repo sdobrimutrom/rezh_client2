@@ -60,7 +60,7 @@ export default function Requests() {
                     { requests?.rows?.map((request) => {
                         return <RequestItem key={ request.id } request={ request } withEditingUI />;
                     }) }
-                    { !requests?.rows?.length && <h5>Ничего не найдено</h5> }
+                    { !requests?.rows?.length && !requestsMeta.isLoading && <h5>Ничего не найдено</h5> }
                 </Row>
                 <Row>
                     { !!requests?.rows?.length &&

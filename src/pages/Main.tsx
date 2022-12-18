@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 function FirstMainBlock() {
-    return(
+    return (
         <>
             <Card
                 className="bg-dark text-white mb-3"
@@ -31,13 +31,13 @@ function FirstMainBlock() {
                                 </Col>
                                 <Col>
                                     <div className="list-group me-3" style = {{ "width": "355px", marginTop: "80px" }}>
-                                        <a href="#!"
+                                        <a href={ "#!" }
                                            className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
                                             ac facilisis in</a>
-                                        <a href="#!"
+                                        <a href={ "#!" }
                                            className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
                                             ac facilisis in</a>
-                                        <a href="#!"
+                                        <a href={ "#!" }
                                            className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
                                             ac facilisis in</a>
                                     </div>

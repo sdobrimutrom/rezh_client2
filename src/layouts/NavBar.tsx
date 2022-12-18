@@ -50,7 +50,6 @@ export default function NavBar({ variant }: NavBarProps) {
                 </>
             );
         }
-
     }, [user]);
 
     const renderChoosingRole = useMemo(() => {
@@ -65,7 +64,7 @@ export default function NavBar({ variant }: NavBarProps) {
                 </NavDropdown>
             );
         }
-    }, [user]);
+    }, [roles]);
 
     return (
         <>

@@ -13,6 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import BreadcrumbItem from '../../../components/common/Breadcrumbs/BreadcrumbItem';
 import BreadcrumbGroup from '../../../components/common/Breadcrumbs/BreadcrumbGroup';
 import Row from 'react-bootstrap/Row';
+import { useAppSelector } from '../../../hooks/redux';
 
 const validationSchema = yup.object({
     title: yup.string().required('Необходимое поле'),
@@ -42,8 +43,18 @@ type FormValues = {
 
 export default function CreateRequest() {
     const [addRequest, { isLoading, error }] = useAddRequestMutation();
+    const { user } = useAppSelector(state => state.userReducer);
 
     const form = useForm<FormValues>({
+        defaultValues: useMemo(() => {
+            return {
+                email: user?.email || '',
+                first_name: user?.first_name || '',
+                second_name: user?.second_name || '',
+                father_name: user?.father_name || '',
+                phone_number: user?.phone_number || '',
+            };
+        }, [user]),
         resolver: yupResolver(validationSchema),
     });
 
@@ -59,6 +70,16 @@ export default function CreateRequest() {
                 Store.addNotification({ ...ErrorNotification(error?.data?.message || 'При создании обращения произошла ошибка') });
             });
     };
+
+    useEffect(() => {
+        form.reset({
+            email: user?.email || '',
+            first_name: user?.first_name || '',
+            second_name: user?.second_name || '',
+            father_name: user?.father_name || '',
+            phone_number: user?.phone_number || '',
+        });
+    }, [user]);
 
     return <Container className={ 'd-flex flex-column gap-3' }>
         <BreadcrumbGroup>

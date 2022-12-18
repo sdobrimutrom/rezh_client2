@@ -8,8 +8,6 @@ import Button from 'react-bootstrap/Button';
 import {
     CaretDownFill, CaretUpFill,
 } from 'react-bootstrap-icons';
-import { Controller } from 'react-hook-form';
-import Form from 'react-bootstrap/Form';
 
 interface IUserItemProps {
     user: IUser;
@@ -66,7 +64,7 @@ const UserItem: React.FC<IUserItemProps> = ({ user }) => {
                 <Alert variant={ 'info' }
                        className={ 'p-4 border border-0 rounded-0 rounded-bottom my-0' }>
                   <b>Информация о пользователе</b>
-                  <div className={ 'pt-2' }>
+                  <div className={ 'pt-2' } style={{whiteSpace: 'pre-wrap'}}>
                       { user?.description || 'Не указано' }
                   </div>
                 </Alert>

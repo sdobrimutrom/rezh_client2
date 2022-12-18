@@ -44,7 +44,7 @@ export default function Deputats() {
                     { deputats?.rows?.map((deputat) => {
                         return <UserItem key={deputat.id}  user={deputat} />;
                     }) }
-                    { !deputats?.rows?.length && <h5>Ничего не найдено</h5> }
+                    { (!deputats?.rows?.length && !deputatsMeta.isLoading) && <h5>Ничего не найдено</h5> }
                 </Row>
                 <Row>
                     { !!deputats?.rows?.length &&
