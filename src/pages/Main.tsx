@@ -26,22 +26,8 @@ function FirstMainBlock() {
                                 <Col>
                                     <h1
                                         style = {{ "height": "118x", "width": "579px",  marginTop: "80px"}}>
-                                        Amet minim mollit non deserunt ullamco.
+                                        Электронный портал города Реж
                                     </h1>
-                                </Col>
-                                <Col>
-                                    <div className="list-group me-3" style = {{ "width": "355px", marginTop: "80px" }}>
-                                        <a href={ "#!" }
-                                           className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
-                                            ac facilisis in</a>
-                                        <a href={ "#!" }
-                                           className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
-                                            ac facilisis in</a>
-                                        <a href={ "#!" }
-                                           className="list-group-item list-group-item-action list-group-item-secondary">Dapibus
-                                            ac facilisis in</a>
-                                    </div>
-
                                 </Col>
                             </Row>
                     </Container>
@@ -102,30 +88,30 @@ function NewsBlock() {
                             <Card.Img src={newsImage_1} alt="Card image"/>
                             <Card.ImgOverlay>
                                 <Card.Header>
-                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
-                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">15 октября</span>
+                                    <span className="border rounded border-light bg-light text-black">Образование</span>
                                 </Card.Header>
-                                <span className="align-self-end mb-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</span>
+                                <span className="align-self-end mb-3">Был произведён ремонт школьной библиотеки.</span>
                             </Card.ImgOverlay>
                         </Card>
                         <Card className="bg-dark text-white mb-3" >
                             <Card.Img src={newsImage_2} alt="Card image"/>
                             <Card.ImgOverlay>
                                 <Card.Header>
-                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
-                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">8 декабря</span>
+                                    <span className="border rounded border-light bg-light text-black">Спорт</span>
                                 </Card.Header>
-                                <Card.Text className="align-self-end mb-3">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
+                                <Card.Text className="align-self-end mb-3">Прошло собрание тренеров нашего города.</Card.Text>
                             </Card.ImgOverlay>
                         </Card>
                         <Card className="bg-dark text-white mb-3">
                             <Card.Img src={newsImage_3} alt="Card image"/>
                             <Card.ImgOverlay>
                                 <Card.Header>
-                                    <span className="border rounded border-primary bg-primary text-white me-2">*Время*</span>
-                                    <span className="border rounded border-light bg-light text-black">*Сфера*</span>
+                                    <span className="border rounded border-primary bg-primary text-white me-2">15 ноября</span>
+                                    <span className="border rounded border-light bg-light text-black">Политика</span>
                                 </Card.Header>
-                                <Card.Text className="align-text-bottom">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</Card.Text>
+                                <Card.Text className="align-text-bottom">Наш город посетил губернатор области.</Card.Text>
                             </Card.ImgOverlay>
                         </Card>
                     </Col>
@@ -138,61 +124,60 @@ function NewsBlock() {
     );
 }
 
-function ProjectsSlider() {
-    return(
-        <>
-            <Carousel style = {{"height": "600px"}} className = "mb-3">
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={sliderImage_1}
-                        alt="First slide"
-                        style = {{"height": "600px"}}
-                    />
-                    <Carousel.Caption>
-                        <h3>Title</h3>
-                        <p>Text</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={sliderImage_1}
-                        alt="Second slide"
-                        style = {{"height": "600px"}}
-                    />
-
-                    <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img
-                        className="d-block w-100"
-                        src={sliderImage_1}
-                        alt="Third slide"
-                        style = {{"height": "600px"}}
-                    />
-
-                    <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>
-                            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                        </p>
-                    </Carousel.Caption>
-                </Carousel.Item>
-            </Carousel>
-        </>
-    );
-}
+// function ProjectsSlider() {
+//     return(
+//         <>
+//             <Carousel style = {{"height": "600px"}} className = "mb-3">
+//                 <Carousel.Item>
+//                     <img
+//                         className="d-block w-100"
+//                         src={sliderImage_1}
+//                         alt="First slide"
+//                         style = {{"height": "600px"}}
+//                     />
+//                     <Carousel.Caption>
+//                         <h3>Title</h3>
+//                         <p>Text</p>
+//                     </Carousel.Caption>
+//                 </Carousel.Item>
+//                 <Carousel.Item>
+//                     <img
+//                         className="d-block w-100"
+//                         src={sliderImage_1}
+//                         alt="Second slide"
+//                         style = {{"height": "600px"}}
+//                     />
+//
+//                     <Carousel.Caption>
+//                         <h3>Second slide label</h3>
+//                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+//                     </Carousel.Caption>
+//                 </Carousel.Item>
+//                 <Carousel.Item>
+//                     <img
+//                         className="d-block w-100"
+//                         src={sliderImage_1}
+//                         alt="Third slide"
+//                         style = {{"height": "600px"}}
+//                     />
+//
+//                     <Carousel.Caption>
+//                         <h3>Third slide label</h3>
+//                         <p>
+//                             Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+//                         </p>
+//                     </Carousel.Caption>
+//                 </Carousel.Item>
+//             </Carousel>
+//         </>
+//     );
+// }
 
 export default function Main() {
     return (
         <div>
             <FirstMainBlock/>
             <NewsBlock/>
-            <ProjectsSlider/>
         </div>
     );
 }
