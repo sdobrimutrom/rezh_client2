@@ -32,12 +32,12 @@ const UserItem: React.FC<IUserItemProps> = ({ user }) => {
                             { `${ user?.second_name } ${ user?.first_name } ${ user?.father_name }` }
                         </h4>
                     </Card.Text>
-                    <Card.Text className={ 'px-5' }>
-                        <h6 className={ 'd-flex flex-row gap-1 align-items-center justify-content-start' }>
-                            <b>Сфера:</b>
-                            { `Образование` }
-                        </h6>
-                    </Card.Text>
+                    {/*<Card.Text className={ 'px-5' }>*/}
+                    {/*    <h6 className={ 'd-flex flex-row gap-1 align-items-center justify-content-start' }>*/}
+                    {/*        <b>Сфера:</b>*/}
+                    {/*        { `Образование` }*/}
+                    {/*    </h6>*/}
+                    {/*</Card.Text>*/}
                     { isWrapped ?
                         <Button onClick={ handleIsWrappedChange(false) } variant={ 'light w-100' }>
                             Скрыть <CaretUpFill />
