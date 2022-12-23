@@ -91,7 +91,7 @@ function NewsBlock() {
                                     <span className="border rounded border-primary bg-primary text-white me-2">15 октября</span>
                                     <span className="border rounded border-light bg-light text-black">Образование</span>
                                 </Card.Header>
-                                <span className="align-self-end mb-3">Был произведён ремонт школьной библиотеки.</span>
+                                <span className="align-self-end mb-3 text-black">Был произведён ремонт школьной библиотеки.</span>
                             </Card.ImgOverlay>
                         </Card>
                         <Card className="bg-dark text-white mb-3" >
