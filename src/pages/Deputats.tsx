@@ -40,7 +40,7 @@ export default function Deputats() {
 
                 </Row>
                 <Row>{ (deputatsMeta.isLoading || deputatsMeta.isFetching) && <Spinner /> }</Row>
-                <Row>
+                <Row className={ 'd-flex flex-column gap-3 container' }>
                     { deputats?.rows?.map((deputat) => {
                         return <UserItem key={deputat.id}  user={deputat} />;
                     }) }
