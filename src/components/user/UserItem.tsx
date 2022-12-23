@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import {
     CaretDownFill, CaretUpFill,
 } from 'react-bootstrap-icons';
+import defaultProfileImage from '../../assets/defaultProfileImage.jpeg';
 
 interface IUserItemProps {
     user: IUser;
@@ -23,7 +24,7 @@ const UserItem: React.FC<IUserItemProps> = ({ user }) => {
         <Card className={ 'p-0' }>
             <Card.Body className={ 'p-0 d-flex flex-row justify-content-between' }>
                 <Col className={ 'flex-grow-0' }>
-                    <Image width={ 150 } height={ 150 } rounded src={ getFileURL(user?.avatar) } />
+                    { <Image width={ 150 } height={ 150 } rounded src={ user?.avatar ? getFileURL(user?.avatar) : defaultProfileImage } /> }
                 </Col>
                 <Col className={ 'd-flex flex-column justify-content-between' }>
                     <Card.Text className={ 'px-5 pt-3' }>

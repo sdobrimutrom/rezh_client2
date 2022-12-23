@@ -85,7 +85,7 @@ const Registration = () => {
                             <Controller control={ form.control } name="password"
                                         defaultValue=""
                                         render={ ({ field: { onChange, value, ref } }) => (
-                                            <Form.Control onChange={ onChange } value={ value } ref={ ref }
+                                            <Form.Control type={'password'} onChange={ onChange } value={ value } ref={ ref }
                                                           isInvalid={ !!form.formState.errors.password }
                                                           placeholder="Введите пароль" />) } />
                             <Form.Control.Feedback type="invalid">
